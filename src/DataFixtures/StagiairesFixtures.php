@@ -13,7 +13,7 @@ class StagiairesFixtures extends Fixture
         $ibn = new Stagiaire();
         $ibn->setNom("Ali")
                 ->setPrenom("Ibn")
-                ->setdateNaissance("1985-01-17")
+                ->setdateNaissance(new \DateTime("1985-01-17"))
                 ->setGenre('Homme')
                 ->setEmail('ibn.ali@gmail.com')
                 ->setTelephone('0622311344')
@@ -23,7 +23,7 @@ class StagiairesFixtures extends Fixture
         $nicolas = new Stagiaire();
         $nicolas->setNom("Eisenberg")
                 ->setPrenom("Nicolas")
-                ->setdateNaissance("1993-08-05")
+                ->setdateNaissance(new \DateTime("1993-08-05"))
                 ->setGenre('Homme')
                 ->setEmail('nicolas.eisenberg@gmail.com')
                 ->setTelephone('0744332211')
@@ -33,7 +33,7 @@ class StagiairesFixtures extends Fixture
         $simon = new Stagiaire();
         $simon->setNom("Machine")
                 ->setPrenom("Simon")
-                ->setdateNaissance("1992-01-17")
+                ->setdateNaissance(new \DateTime("1992-01-17"))
                 ->setGenre('Homme')
                 ->setEmail('simon.machine@gmail.com')
                 ->setTelephone('0655677688')
@@ -43,7 +43,7 @@ class StagiairesFixtures extends Fixture
         $arno = new Stagiaire();
         $arno->setNom("Elbergerdo")
                 ->setPrenom("Arnaud")
-                ->setdateNaissance("1992-03-17")
+                ->setdateNaissance(new \DateTime("1992-03-17"))
                 ->setGenre('Homme')
                 ->setEmail('arnaud.elbergerdo@gmail.com')
                 ->setTelephone('0666667788')
@@ -53,7 +53,7 @@ class StagiairesFixtures extends Fixture
         $elias = new Stagiaire();
         $elias->setNom("JeRouleEnPorsche")
                 ->setPrenom("Elias")
-                ->setdateNaissance("1991-03-17")
+                ->setdateNaissance(new \DateTime("1991-03-17"))
                 ->setGenre('Homme')
                 ->setEmail('elias.lamborghini@gmail.com')
                 ->setTelephone('0666667788')
@@ -63,7 +63,7 @@ class StagiairesFixtures extends Fixture
         $sample = new Stagiaire();
         $sample->setNom("Jesaisplus")
                 ->setPrenom("Sample")
-                ->setdateNaissance("1988-03-17")
+                ->setdateNaissance(new \DateTime("1988-03-17"))
                 ->setGenre('Femme')
                 ->setEmail('sample.jesaisplus@gmail.com')
                 ->setTelephone('0666667788')

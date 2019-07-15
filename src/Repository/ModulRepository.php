@@ -27,7 +27,7 @@ class ModulRepository extends ServiceEntityRepository
                                 FROM App\Entity\Modul m
                                 WHERE m.intitule = :intitule');
         $query->setParameter('intitule', $intitule);
-        return $query->execute();
+        return $query->getOneOrNullResult();
     }
 
     // /**

@@ -37,7 +37,7 @@ class SessionRepository extends ServiceEntityRepository
                                 FROM App\Entity\Session s
                                 WHERE s.intitule = :intitule');
         $query->setParameter('intitule', $intitule);
-        return $query->execute();
+        return $query->getOneOrNullResult();
     }
 
 

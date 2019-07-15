@@ -25,11 +25,11 @@ class StagiaireRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
                                 'SELECT s
                                 FROM App\Entity\Stagiaire s
-                                WHERE f.nom = :nom
-                                AND f.prenom = :prenom');
+                                WHERE s.nom = :nom
+                                AND s.prenom = :prenom');
         $query->setParameter('nom', $nom);
-        $query6>setParameter('prenom', $prenom);
-        return $query->execute();
+        $query->setParameter('prenom', $prenom);
+        return $query->getOneOrNullResult();
     }
 
     // /**

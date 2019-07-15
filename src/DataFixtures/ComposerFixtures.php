@@ -5,11 +5,14 @@ namespace App\DataFixtures;
 use App\Entity\Modul;
 use App\Entity\Session;
 use App\Entity\Composer;
+use App\DataFixtures\ModulesFixtures;
+use App\DataFixtures\SessionsFixtures;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ComposerFixtures extends Fixture
+class ComposerFixtures extends Fixture implements DependentFixtureInterface
 {
     private $repositorySession;
     private $repositoryModule;
@@ -75,5 +78,13 @@ class ComposerFixtures extends Fixture
         $manager->persist($sept);
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            SessionsFixtures::class,
+            ModulesFixtures::class,
+        );
     }
 }

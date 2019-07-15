@@ -27,17 +27,15 @@ class FormateurRepository extends ServiceEntityRepository
                     ->innerJoin('m.');
     }
 
-    public function findByName($prenom, $nom)
+    public function findByName($nom)
     {
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery(
                                 'SELECT f
                                 FROM App\Entity\Formateur f
-                                WHERE f.nom = :nom
-                                AND f.prenom = :prenom');
+                                WHERE f.nom = :nom');
         $query->setParameter('nom', $nom);
-        $query->setParameter('prenom', $prenom);
-        return $query->execute();
+        return $query->getSingleResult();
     }
 
     // /**

@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Modul;
 use App\Entity\Session;
+use App\Entity\Categorie;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
