@@ -26,6 +26,7 @@ class SessionRepository extends ServiceEntityRepository
                             FROM App\Entity\Session s 
                             ORDER BY s.dateDebut ASC'
         );
+        return $query -> execute();
     }
 
     public function findByIntitule($intitule)

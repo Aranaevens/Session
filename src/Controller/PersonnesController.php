@@ -34,7 +34,7 @@ class PersonnesController extends AbstractController
             'controller_name' => 'PersonnesController',
         ]);
     }
-
+    
     /**
      * @Route("/formateurs", name="formateurs_list")
      */
