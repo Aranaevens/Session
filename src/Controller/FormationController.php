@@ -54,6 +54,7 @@ class FormationController extends AbstractController
                         ->getRepository(Modul::class)
                         ->findAll();
     }
+
     
 
 
