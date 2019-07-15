@@ -30,6 +30,7 @@ class CategoriesFixtures extends Fixture
         $micka = $this->repositoryFormateur->findByName('Mickael', 'Murmann');
         $virgile = $this->repositoryFormateur->findByName('Virgile', 'Gibello');
         $jane = $this->repositoryFormateur->findByName('Jane', 'Doe');
+        
         $word = $this->repositoryModule->findByIntitule('Word');
         $excel = $this->repositoryModule->findByIntitule('Excel');
         $outlook = $this->repositoryModule->findByIntitule('Outlook');
@@ -41,27 +42,34 @@ class CategoriesFixtures extends Fixture
         $buro = new Categorie();
         $buro->setIntitule('Bureautique');
         $buro->addFormateur($micka);
+        $buro->addModule($word);
+        $buro->addModule($excel);
+        $buro->addModule($outlook);
         $manager->persist($buro);
 
-        $micka->addCategorie($buro);
+        // $micka->addCategorie($buro);
 
         $informatique = new Categorie();
         $informatique->setIntitule('Developpement');
         $informatique->addFormateur($micka);
         $informatique->addFormateur($virgile);
+        $informatique->addModule($php);
+        $informatique->addModule($sql);
+        $informatique->addModule($symfony);
         $manager->persist($informatique);
 
-        $micka->addCategorie($informatique);
-        $virgile->addCategorie($informatique);
+        // $micka->addCategorie($informatique);
+        // $virgile->addCategorie($informatique);
 
         $graphie = new Categorie();
         $graphie->setIntitule('Infographie');
         $graphie->addFormateur($micka);
         $graphie->addFormateur($jane);
+        $graphie->addModule($photoshop);
         $manager->persist($graphie);
 
-        $micka->addCategorie($graphie);
-        $jane->addCategorie($graphie);
+        // $micka->addCategorie($graphie);
+        // $jane->addCategorie($graphie);
 
         $manager->flush();
     }
