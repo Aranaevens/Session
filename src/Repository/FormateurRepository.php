@@ -19,6 +19,27 @@ class FormateurRepository extends ServiceEntityRepository
         parent::__construct($registry, Formateur::class);
     }
 
+    public function findBySession($session_id)
+    {
+        return $this->createQueryBuilder('f')
+                    ->innerJoin('f.categories', 'c')
+                    ->innerJoin('c.modules', 'm')
+                    ->innerJoin('m.');
+    }
+
+    public function findByName($prenom, $nom)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+                                'SELECT f
+                                FROM App\Entity\Formateur f
+                                WHERE f.nom = :nom
+                                AND f.prenom = :prenom');
+        $query->setParameter('nom', $nom);
+        $query6>setParameter('prenom', $prenom);
+        return $query->execute();
+    }
+
     // /**
     //  * @return Formateur[] Returns an array of Formateur objects
     //  */

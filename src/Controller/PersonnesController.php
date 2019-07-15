@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Formateur;
 use App\Entity\Stagiaire;
-use App\Entity\Message;
+use App\Entity\Categorie;
+use App\Entity\Composer;
+use App\Entity\Modul;
+use App\Entity\Session;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
