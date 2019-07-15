@@ -19,7 +19,7 @@ class Modul
     /**
      * @ORM\Column(type="string", length=150)
      */
-    private $initule;
+    private $intitule;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="modules")

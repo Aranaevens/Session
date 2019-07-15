@@ -36,7 +36,7 @@ class FormateurRepository extends ServiceEntityRepository
                                 WHERE f.nom = :nom
                                 AND f.prenom = :prenom');
         $query->setParameter('nom', $nom);
-        $query6>setParameter('prenom', $prenom);
+        $query->setParameter('prenom', $prenom);
         return $query->execute();
     }
 
