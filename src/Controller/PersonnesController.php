@@ -26,6 +26,21 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 class PersonnesController extends AbstractController
 {
     /**
+     * @Route("/{id}/formateurs/", name="formateurs_session", methods="GET")
+     */
+    public function showFormateursBySession(Session $session): Response
+    {
+        $formateurs = $this->getDoctrine()
+                            ->getRepository(Formateur::class)
+                            ->findbySession($session->getId());
+        
+        return $this->render('personnes/form_show_session.html.twig', [
+            'formateurs' => $formateurs,
+            'session' => $session,
+        ]);
+    }
+
+    /**
      * @Route("/", name="personnes_index")
      */
     public function index()
@@ -59,20 +74,7 @@ class PersonnesController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("{id}/formateurs/", name="formateurs_show")
-     */
-    public function showFormateursBySession(Session $session): Response
-    {
-        $formateurs = $this->getDoctrine()
-                            ->getRepository(Formateur::class)
-                            ->findbySession($session->getId());
-        
-        return $this->render('personnes/form_show_session.html.twig', [
-            'formateurs' => $formateurs,
-            'session' => $session,
-        ]);
-    }
+    
 
     /**
      * @Route("/stagiaires", name="stagiaires_list")
