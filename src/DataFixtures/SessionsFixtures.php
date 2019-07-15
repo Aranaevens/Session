@@ -2,6 +2,9 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Session;
+use App\Entity\Stagiaire;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
