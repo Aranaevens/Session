@@ -61,9 +61,12 @@ class FormationController extends AbstractController
         $modules = $this->getDoctrine()
                         ->getRepository(Modul::class)
                         ->findAll();
+
+        return $this->render('formation/listModules.html.twig',['modules'=>$modules,
+        ]);
     }
 
-    
+
 
 
 
