@@ -12,8 +12,8 @@ use App\Entity\Session;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -38,7 +38,7 @@ class PersonnesController extends AbstractController
     /**
      * @Route("/formateurs", name="formateurs_list")
      */
-    public function listFormateurs()
+    public function listFormateurs(): Response
     {
         $formateurs = $this->getDoctrine()
                             ->getRepository(Formateur::class)
@@ -52,7 +52,7 @@ class PersonnesController extends AbstractController
     /**
      * @Route("/formateurs/{id}", name="formateurs_show")
      */
-    public function showFormateurs(Formateur $formateur)
+    public function showFormateurs(Formateur $formateur): Response
     {
         return $this->render('personnes/form_show.html.twig', [
             'formateur' => $formateur,
@@ -60,9 +60,24 @@ class PersonnesController extends AbstractController
     }
 
     /**
+     * @Route("{id}/formateurs/", name="formateurs_show")
+     */
+    public function showFormateursBySession(Session $session): Response
+    {
+        $formateurs = $this->getDoctrine()
+                            ->getRepository(Formateur::class)
+                            ->findbySession($session->getId());
+        
+        return $this->render('personnes/form_show_session.html.twig', [
+            'formateurs' => $formateurs,
+            'session' => $session,
+        ]);
+    }
+
+    /**
      * @Route("/stagiaires", name="stagiaires_list")
      */
-    public function listStagiaire()
+    public function listStagiaire(): Response
     {
         $stagiaires = $this->getDoctrine()
                             ->getRepository(Formateur::class)
@@ -76,7 +91,7 @@ class PersonnesController extends AbstractController
     /**
      * @Route("/stagiaires/{id}", name="stagiaires_show")
      */
-    public function showStagiaire(Stagiaire $stagiaire)
+    public function showStagiaire(Stagiaire $stagiaire): Response
     {
         return $this->render('personnes/form_list.html.twig', [
             'stagiaire' => $stagiaire,
