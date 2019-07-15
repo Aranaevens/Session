@@ -5,10 +5,16 @@ namespace App\Controller;
 use App\Entity\Modul;
 use App\Entity\Session;
 use App\Entity\Categorie;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+
+/**
+ * @Route("/formations")
+ */
 class FormationController extends AbstractController
 {
     /**
@@ -24,7 +30,7 @@ class FormationController extends AbstractController
         ]);
     }
      /**
-     * @Route("/formation/{id}}", name="showOneFormation", method="GET")
+     * @Route("/formation/{id}}", name="showOneFormation", methods="GET")
      */
     public function show(Session $session): Response{
         return $this->render('formation/show.html.twig',['session'=>$session]);
@@ -42,7 +48,7 @@ class FormationController extends AbstractController
         ]);
     }
     /**
-     * @Route("/categorie/{id}}", name="voirOneCategorie", method="GET")
+     * @Route("/categorie/{id}}", name="voirOneCategorie", methods="GET")
      */
     public function voirCategorie(Categorie $categorie): Response{
         return $this->render('formation/voirCategorie.html.twig',['categorie'=>$categorie,

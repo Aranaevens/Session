@@ -24,7 +24,12 @@ class FormateurRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('f')
                     ->innerJoin('f.categories', 'c')
                     ->innerJoin('c.modules', 'm')
-                    ->innerJoin('m.');
+                    ->innerJoin('m.composer', 'co')
+                    ->innerJoin('co.sessions', 's')
+                    ->where('s.id = :id')
+                    ->setParameter('id', $session_id)
+                    ->getQuery()
+                    ->getResult();
     }
 
     public function findByName($nom)
