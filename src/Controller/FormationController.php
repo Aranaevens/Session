@@ -46,7 +46,7 @@ class FormationController extends AbstractController
         return $this->render('formation/voirCategorie.html.twig',['categorie'=>$categorie,
         ]);
     }
-     /**
+    /**
      * @Route("/modul", name="listAllModules")
      */
     public function listModules(){
@@ -54,6 +54,8 @@ class FormationController extends AbstractController
                         ->getRepository(Modul::class)
                         ->findAll();
     }
+    
+
 
 
 
