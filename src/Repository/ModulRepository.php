@@ -19,6 +19,17 @@ class ModulRepository extends ServiceEntityRepository
         parent::__construct($registry, Modul::class);
     }
 
+    public function findByIntitule($intitule)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+                                'SELECT f
+                                FROM App\Entity\Modul m
+                                WHERE f.intitule = :intitule');
+        $query->setParameter('intitule', $intitule);
+        return $query->execute();
+    }
+
     // /**
     //  * @return Modul[] Returns an array of Modul objects
     //  */
