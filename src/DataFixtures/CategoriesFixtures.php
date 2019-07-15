@@ -9,12 +9,14 @@ use App\Entity\Categorie;
 use App\Entity\Formateur;
 use App\Entity\Stagiaire;
 
+use App\DataFixtures\ModulesFixtures;
 use App\DataFixtures\FormateursFixtures;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class CategoriesFixtures extends Fixture
+class CategoriesFixtures extends Fixture implements DependentFixtureInterface
 {
     private $repositoryFormateur;
     private $repositoryModule;
@@ -27,9 +29,9 @@ class CategoriesFixtures extends Fixture
     
     public function load(ObjectManager $manager)
     {
-        $micka = $this->repositoryFormateur->findByName('Mickael', 'Murmann');
-        $virgile = $this->repositoryFormateur->findByName('Virgile', 'Gibello');
-        $jane = $this->repositoryFormateur->findByName('Jane', 'Doe');
+        $micka = $this->repositoryFormateur->findByName('Murmann');
+        $virgile = $this->repositoryFormateur->findByName('Gibello');
+        $jane = $this->repositoryFormateur->findByName('Deo');
         
         $word = $this->repositoryModule->findByIntitule('Word');
         $excel = $this->repositoryModule->findByIntitule('Excel');
@@ -78,7 +80,7 @@ class CategoriesFixtures extends Fixture
     {
         return array(
             FormateursFixtures::class,
-            ModulesFixutes::class,
+            ModulesFixtures::class,
         );
     }
 }

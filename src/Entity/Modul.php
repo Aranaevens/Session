@@ -23,7 +23,6 @@ class Modul
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="modules")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $categorie;
 
@@ -37,14 +36,14 @@ class Modul
         return $this->id;
     }
 
-    public function getInitule(): ?string
+    public function getIntitule(): ?string
     {
-        return $this->initule;
+        return $this->intitule;
     }
 
-    public function setInitule(string $initule): self
+    public function setIntitule(string $intitule): self
     {
-        $this->initule = $initule;
+        $this->intitule = $intitule;
 
         return $this;
     }

@@ -19,7 +19,7 @@ class FormateursFixtures extends Fixture
         $micka = new Formateur();
         $micka->setNom("Murmann")
                 ->setPrenom("Mickael")
-                ->setdateNaissance("1985-01-17")
+                ->setdateNaissance(new \DateTime("1985-01-17"))
                 ->setGenre('Homme')
                 ->setEmail('mickael.murmann@gmail.com')
                 ->setTelephone('0611223344')
@@ -29,7 +29,7 @@ class FormateursFixtures extends Fixture
         $virgile = new Formateur();
         $virgile->setNom("Gibello")
                 ->setPrenom("Virgile")
-                ->setdateNaissance("1985-05-17")
+                ->setdateNaissance(new \DateTime("1985-05-17"))
                 ->setGenre('Homme')
                 ->setEmail('virgile.gibello@gmail.com')
                 ->setTelephone('0644332211')
@@ -39,7 +39,7 @@ class FormateursFixtures extends Fixture
         $doe = new Formateur();
         $doe->setNom("Doe")
                 ->setPrenom("John")
-                ->setdateNaissance("1980-01-17")
+                ->setdateNaissance(new \DateTime("1980-01-17"))
                 ->setGenre('Homme')
                 ->setEmail('john.doe@gmail.com')
                 ->setTelephone('0655667788')
@@ -47,9 +47,9 @@ class FormateursFixtures extends Fixture
         $manager->persist($doe);
 
         $jdoe = new Formateur();
-        $jdoe->setNom("Doe")
+        $jdoe->setNom("Deo")
                 ->setPrenom("Jane")
-                ->setdateNaissance("1983-03-17")
+                ->setdateNaissance(new \DateTime("1983-03-17"))
                 ->setGenre('Femme')
                 ->setEmail('jane.doe@gmail.com')
                 ->setTelephone('0666557788')
