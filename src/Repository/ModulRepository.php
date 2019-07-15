@@ -23,9 +23,9 @@ class ModulRepository extends ServiceEntityRepository
     {
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery(
-                                'SELECT f
+                                'SELECT m
                                 FROM App\Entity\Modul m
-                                WHERE f.intitule = :intitule');
+                                WHERE m.intitule = :intitule');
         $query->setParameter('intitule', $intitule);
         return $query->execute();
     }

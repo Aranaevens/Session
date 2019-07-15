@@ -26,7 +26,17 @@ class SessionRepository extends ServiceEntityRepository
                             FROM App\Entity\Session s 
                             ORDER BY s.dateDebut ASC'
         );
+    }
 
+    public function findByIntitule($intitule)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+                                'SELECT s
+                                FROM App\Entity\Session s
+                                WHERE s.intitule = :intitule');
+        $query->setParameter('intitule', $intitule);
+        return $query->execute();
     }
 
 
