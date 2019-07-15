@@ -19,15 +19,6 @@ class CategorieRepository extends ServiceEntityRepository
         parent::__construct($registry, Categorie::class);
     }
 
-    public function getAll(){
-        $entityManager = $this->getEntityManager();
-        $query = $entityManager-createQuery(
-                        'SELECT c
-                            FROM App\Entity\Categorie c 
-                            ORDER BY c.intitule ASC'
-                );
-        return $query -> execute();
-    }
 
     // /**
     //  * @return Categorie[] Returns an array of Categorie objects

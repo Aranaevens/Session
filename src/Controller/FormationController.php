@@ -18,12 +18,12 @@ use Symfony\Component\HttpFoundation\Response;
 class FormationController extends AbstractController
 {
     /**
-     * @Route("/formation", name="listAllFormations")
+     * @Route("/", name="listAllFormations")
      */
     public function index(){
         $sessions = $this->getDoctrine()
                          ->getRepository(Session::class)
-                         ->getAll();
+                         ->findAll();
 
         return $this->render('formation/index.html.twig', [
             'sessions' => $sessions,
@@ -41,7 +41,7 @@ class FormationController extends AbstractController
     public function listCategories(){
         $categories = $this->getDoctrine()
                            ->getRepository(Categorie::class)
-                           ->getAll();
+                           ->findAll();
 
         return $this->render('formation/listCategories.html.twig',[ 
             'categories'=>$categories,
