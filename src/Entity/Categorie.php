@@ -16,7 +16,7 @@ class Categorie
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;u
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=150)
