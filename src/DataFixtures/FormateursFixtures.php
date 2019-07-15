@@ -57,5 +57,5 @@ class FormateursFixtures extends Fixture
         $manager->persist($jdoe);
 
         $manager->flush();
-    }
+    } 
 }
