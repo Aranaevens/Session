@@ -16,18 +16,27 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class CategoriesFixtures extends Fixture
 {
-    private $repository;
+    private $repositoryFormateur;
+    private $repositoryModule;
 
     public function __construct(EntityManagerInterface $em)
     {
-        $this->repository = $em->getRepository(Formateur::class);
+        $this->repositoryFormateur = $em->getRepository(Formateur::class);
+        $this->repositoryModule = $em->getRepository(Modul::class);
     }
     
     public function load(ObjectManager $manager)
     {
-        $micka = $this->repository->findByName('Mickael', 'Murmann');
-        $virgile = $this->repository->findByName('Virgile', 'Gibello');
-        $jane = $this->repository->findByName('Jane', 'Doe');
+        $micka = $this->repositoryFormateur->findByName('Mickael', 'Murmann');
+        $virgile = $this->repositoryFormateur->findByName('Virgile', 'Gibello');
+        $jane = $this->repositoryFormateur->findByName('Jane', 'Doe');
+        $word = $this->repositoryModule->findByIntitule('Word');
+        $excel = $this->repositoryModule->findByIntitule('Excel');
+        $outlook = $this->repositoryModule->findByIntitule('Outlook');
+        $php = $this->repositoryModule->findByIntitule('PHP');
+        $sql = $this->repositoryModule->findByIntitule('SQL');
+        $symfony = $this->repositoryModule->findByIntitule('Symfony');
+        $photoshop = $this->repositoryModule->findByIntitule('Photoshop');
         
         $buro = new Categorie();
         $buro->setIntitule('Bureautique');
@@ -61,6 +70,7 @@ class CategoriesFixtures extends Fixture
     {
         return array(
             FormateursFixtures::class,
+            ModulesFixutes::class,
         );
     }
 }
