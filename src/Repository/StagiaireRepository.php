@@ -19,6 +19,19 @@ class StagiaireRepository extends ServiceEntityRepository
         parent::__construct($registry, Stagiaire::class);
     }
 
+    public function findByName($prenom, $nom)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+                                'SELECT s
+                                FROM App\Entity\Stagiaire s
+                                WHERE f.nom = :nom
+                                AND f.prenom = :prenom');
+        $query->setParameter('nom', $nom);
+        $query6>setParameter('prenom', $prenom);
+        return $query->execute();
+    }
+
     // /**
     //  * @return Stagiaire[] Returns an array of Stagiaire objects
     //  */
