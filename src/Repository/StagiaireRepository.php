@@ -32,6 +32,18 @@ class StagiaireRepository extends ServiceEntityRepository
         return $query->getOneOrNullResult();
     }
 
+    public function StagiairesByFormation($id){
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+                                'SELECT s
+                                FROM App\Entity\Stagiaire s, App\Entity\Session ss
+                                WHERE ss.id = :id
+                                GROUP BY s.id
+                                ORDER BY s.nom ASC');
+        $query->setParameter('id',$id);
+        return $query->execute();
+    }
+
     // /**
     //  * @return Stagiaire[] Returns an array of Stagiaire objects
     //  */
