@@ -106,6 +106,7 @@ class PersonnesController extends AbstractController
         
         return $this->render('personnes/stag_show.html.twig', [
             'stagiaire' => $stagiaire,
+            'sessions' => $sessions,
         ]);
     }
 }
