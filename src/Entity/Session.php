@@ -39,18 +39,19 @@ class Session
     private $dateFin;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Composer", inversedBy="sessions")
-     */
-    private $composer;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Stagiaire", inversedBy="sessions")
      */
     private $stagiaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Composer", mappedBy="session", orphanRemoval=true)
+     */
+    private $composer;
+
     public function __construct()
     {
         $this->stagiaires = new ArrayCollection();
+        $this->composer = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,18 +107,6 @@ class Session
         return $this;
     }
 
-    public function getComposer(): ?Composer
-    {
-        return $this->composer;
-    }
-
-    public function setComposer(?Composer $composer): self
-    {
-        $this->composer = $composer;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Stagiaire[]
      */
@@ -139,6 +128,37 @@ class Session
     {
         if ($this->stagiaires->contains($stagiaire)) {
             $this->stagiaires->removeElement($stagiaire);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Composer[]
+     */
+    public function getComposer(): Collection
+    {
+        return $this->composer;
+    }
+
+    public function addComposer(Composer $composer): self
+    {
+        if (!$this->composer->contains($composer)) {
+            $this->composer[] = $composer;
+            $composer->setSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComposer(Composer $composer): self
+    {
+        if ($this->composer->contains($composer)) {
+            $this->composer->removeElement($composer);
+            // set the owning side to null (unless already changed)
+            if ($composer->getSession() === $this) {
+                $composer->setSession(null);
+            }
         }
 
         return $this;

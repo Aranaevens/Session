@@ -58,7 +58,7 @@ class SessionRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('ses')
                     ->innerJoin('ses.composer', 'comp')
-                    ->innerJoin('comp.modules', 'm')
+                    ->innerJoin('comp.module', 'm')
                     ->innerJoin('m.categorie', 'cat')
                     ->innerJoin('cat.formateurs', 'f')
                     ->where('f.id = :id')

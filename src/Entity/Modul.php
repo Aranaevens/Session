@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,9 +29,14 @@ class Modul
     private $categorie;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Composer", inversedBy="modules")
+     * @ORM\OneToMany(targetEntity="App\Entity\Composer", mappedBy="module", orphanRemoval=true)
      */
     private $composer;
+
+    public function __construct()
+    {
+        $this->composer = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,14 +67,33 @@ class Modul
         return $this;
     }
 
-    public function getComposer(): ?Composer
+    /**
+     * @return Collection|Composer[]
+     */
+    public function getComposer(): Collection
     {
         return $this->composer;
     }
 
-    public function setComposer(?Composer $composer): self
+    public function addComposer(Composer $composer): self
     {
-        $this->composer = $composer;
+        if (!$this->composer->contains($composer)) {
+            $this->composer[] = $composer;
+            $composer->setModule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComposer(Composer $composer): self
+    {
+        if ($this->composer->contains($composer)) {
+            $this->composer->removeElement($composer);
+            // set the owning side to null (unless already changed)
+            if ($composer->getModule() === $this) {
+                $composer->setModule(null);
+            }
+        }
 
         return $this;
     }

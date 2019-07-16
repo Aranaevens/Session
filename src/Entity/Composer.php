@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,20 +22,16 @@ class Composer
     private $nbJours;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Modul", mappedBy="composer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Modul", inversedBy="composer")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $modules;
+    private $module;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Session", mappedBy="composer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Session", inversedBy="composer")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $sessions;
-
-    public function __construct()
-    {
-        $this->modules = new ArrayCollection();
-        $this->sessions = new ArrayCollection();
-    }
+    private $session;
 
     public function getId(): ?int
     {
@@ -56,64 +50,26 @@ class Composer
         return $this;
     }
 
-    /**
-     * @return Collection|Modul[]
-     */
-    public function getModules(): Collection
+    public function getModule(): ?Modul
     {
-        return $this->modules;
+        return $this->module;
     }
 
-    public function addModule(Modul $module): self
+    public function setModule(?Modul $module): self
     {
-        if (!$this->modules->contains($module)) {
-            $this->modules[] = $module;
-            $module->setComposer($this);
-        }
+        $this->module = $module;
 
         return $this;
     }
 
-    public function removeModule(Modul $module): self
+    public function getSession(): ?Session
     {
-        if ($this->modules->contains($module)) {
-            $this->modules->removeElement($module);
-            // set the owning side to null (unless already changed)
-            if ($module->getComposer() === $this) {
-                $module->setComposer(null);
-            }
-        }
-
-        return $this;
+        return $this->session;
     }
 
-    /**
-     * @return Collection|Session[]
-     */
-    public function getSessions(): Collection
+    public function setSession(?Session $session): self
     {
-        return $this->sessions;
-    }
-
-    public function addSession(Session $session): self
-    {
-        if (!$this->sessions->contains($session)) {
-            $this->sessions[] = $session;
-            $session->setComposer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSession(Session $session): self
-    {
-        if ($this->sessions->contains($session)) {
-            $this->sessions->removeElement($session);
-            // set the owning side to null (unless already changed)
-            if ($session->getComposer() === $this) {
-                $session->setComposer(null);
-            }
-        }
+        $this->session = $session;
 
         return $this;
     }

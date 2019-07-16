@@ -39,42 +39,42 @@ class ComposerFixtures extends Fixture implements DependentFixtureInterface
         // Couples for wordexcel
         $un = new Composer();
         $un->setNbJours(2)
-            ->addModule($word)
-            ->addSession($wordexcel);
+            ->setModule($word)
+            ->setSession($wordexcel);
         $manager->persist($un);
         $deux = new Composer();
         $deux->setNbJours(2)
-            ->addModule($excel)
-            ->addSession($wordexcel);
+            ->setModule($excel)
+            ->setSession($wordexcel);
         $manager->persist($deux);
 
         // Couples for wordtoshop
         $trois = new Composer();
         $trois->setNbJours(3)
-            ->addModule($word)
-            ->addSession($wordtoshop);
+            ->setModule($word)
+            ->setSession($wordtoshop);
         $manager->persist($trois);
         $quatre = new Composer();
         $quatre->setNbJours(3)
-            ->addModule($photoshop)
-            ->addSession($wordtoshop);
+            ->setModule($photoshop)
+            ->setSession($wordtoshop);
         $manager->persist($quatre);
 
         // Couples for DL
         $cinq = new Composer();
         $cinq->setNbJours(45)
-            ->addModule($php)
-            ->addSession($dl);
+            ->setModule($php)
+            ->setSession($dl);
         $manager->persist($cinq);
         $six = new Composer();
         $six->setNbJours(7)
-            ->addModule($sql)
-            ->addSession($dl);
+            ->setModule($sql)
+            ->setSession($dl);
         $manager->persist($six);
         $sept = new Composer();
         $sept->setNbJours(30)
-            ->addModule($symfony)
-            ->addSession($dl);
+            ->setModule($symfony)
+            ->setSession($dl);
         $manager->persist($sept);
 
         $manager->flush();

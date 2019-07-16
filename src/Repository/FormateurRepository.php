@@ -25,7 +25,7 @@ class FormateurRepository extends ServiceEntityRepository
                     ->innerJoin('f.categories', 'c')
                     ->innerJoin('c.modules', 'm')
                     ->innerJoin('m.composer', 'co')
-                    ->innerJoin('co.sessions', 's')
+                    ->innerJoin('co.session', 's')
                     ->where('s.id = :id')
                     ->setParameter('id', $session_id)
                     ->getQuery()

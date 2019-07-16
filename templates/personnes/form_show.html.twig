@@ -18,7 +18,7 @@
         <h4>Sessions prévues</h4>
         <ul>
             {% for formation in sessions %}
-            <strong>{{ formation.intitule }}</strong> (du {{ formation.dateDebut | date('d/m/Y') }} au {{ formation.dateFin | date('d/m/Y') }})
+            <li><strong>{{ formation.intitule }}</strong> (du {{ formation.dateDebut | date('d/m/Y') }} au {{ formation.dateFin | date('d/m/Y') }})</li>
             {% endfor %}
         </ul>
     </div>
