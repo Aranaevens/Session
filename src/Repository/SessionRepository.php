@@ -29,6 +29,7 @@ class SessionRepository extends ServiceEntityRepository
         return $query -> execute();
     }
 
+    // Renvoie la session nommée $intitule, sert pour les fixtures principalement
     public function findByIntitule($intitule)
     {
         $entityManager = $this->getEntityManager();
@@ -38,6 +39,33 @@ class SessionRepository extends ServiceEntityRepository
                                 WHERE s.intitule = :intitule');
         $query->setParameter('intitule', $intitule);
         return $query->getOneOrNullResult();
+    }
+
+    // Renvoie toutes les formations suivies par UN stagiaire
+    public function findByStagiaire($stagiaire_id)
+    {
+        return $this->createQueryBuilder('ses')
+                    ->innerJoin('ses.stagiaires', 'sta')
+                    ->where('sta.id = :id')
+                    ->setParameter('id', $stagiaire_id)
+                    ->orderBy('ses.dateDebut', 'DESC')
+                    ->getQuery()
+                    ->getResult();
+    }
+
+    // Renvoie toutes les formations où UN formateur intervient
+    public function findByFormateur($formateur_id)
+    {
+        return $this->createQueryBuilder('ses')
+                    ->innerJoin('ses.composer', 'comp')
+                    ->innerJoin('comp.modules', 'm')
+                    ->innerJoin('m.categorie', 'cat')
+                    ->innerJoin('cat.formateurs', 'f')
+                    ->where('f.id = :id')
+                    ->setParameter('id', $formateur_id)
+                    ->orderBy('ses.dateDebut', 'DESC')
+                    ->getQuery()
+                    ->getResult();
     }
 
 

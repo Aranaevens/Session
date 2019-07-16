@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de {{ formateur.prenom }} {{ formateur.nom }}{% endblock %}
+
+{% block body %}
+
+{% for session in sessions %}
+<p>{{ session.intitule }}</p>
+{% endfor %}
+
+{% endblock %}

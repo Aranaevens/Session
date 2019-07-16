@@ -69,8 +69,13 @@ class PersonnesController extends AbstractController
      */
     public function showFormateurs(Formateur $formateur): Response
     {
+        $sessions = $this->getDoctrine()
+                            ->getRepository(Session::class)
+                            ->findByFormateur($formateur->getId());
+        
         return $this->render('personnes/form_show.html.twig', [
             'formateur' => $formateur,
+            'sessions' => $sessions,
         ]);
     }
 
