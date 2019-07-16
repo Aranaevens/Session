@@ -116,6 +116,11 @@ class Stagiaire
         return $this;
     }
 
+    public function getAge(): string
+    {
+        return $this->dateNaissance->diff(new \DateTime, true)->format('%Y');
+    }
+
     public function getVille(): ?string
     {
         return $this->ville;

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des formateurs{% endblock %}
+
+{% block body %}
+<main>
+<div id="wrapper-main">
+    <table class="uk-table uk-table-striped uk-table-middle">
+        <thead>
+            <th>Prénom</th>
+            <th>Nom</th>
+        </thead>
+        <tbody>
+            {% for formateur in formateurs %}
+                <tr>
+                    <td>{{ formateur.prenom }}</td>
+                    <td>{{ formateur.nom }}</td>
+                    <td><a href="{{ path('formateur_show', {'id':formateur.id}) }}"><i class="fas fa-list-ul"></i></a></td>
+                    {% if is_granted('ROLE_USER') %}
+                    <td>Futurs outils de modération</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</main>
+
+{% endblock %}

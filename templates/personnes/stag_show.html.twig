@@ -3,9 +3,26 @@
 {% block title %}Détails de {{ stagiaire.prenom }} {{ stagiaire.nom }}{% endblock %}
 
 {% block body %}
-
-{% for session in sessions %}
-<p>{{ session.intitule }}</p>
-{% endfor %}
+<main>
+<div id="wrapper-main">
+    <div id="personne-detail-box">
+        <h3><i class="fas fa-portrait"></i> <strong>Fiche stagiaire</strong></h3>
+        <h3>{{ stagiaire.prenom }} {{ stagiaire.nom }}</h3>
+        <dd>
+            <dt>Sexe :</dt> <dl>{{ stagiaire.genre }}</dl>
+            <dt>Date de naissance :</dt> <dl>{{ stagiaire.genre }} ({{ stagiaire.age }} ans)</dl>
+            <dt>Ville :</dt> <dl>{{ stagiaire.ville }}</dl>
+            <dt>Courriel :</dt> <dl>{{ stagiaire.email }}</dl>
+            <dt>Téléphone :</dt> <dl>{{ stagiaire.telephone }}</dl>
+        </dd>
+        <h4>Sessions prévues</h4>
+        <ul>
+            {% for formation in sessions %}
+            <strong>{{ formation.intitule }}</strong> (du {{ formation.dateDebut | date('d/m/Y') }} au {{ formation.dateFin | date('d/m/Y') }})
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+</main>
 
 {% endblock %}
