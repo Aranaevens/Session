@@ -1,7 +1,33 @@
+:root {
+    --main-color: #FFAA3F;
+    --main-secondary: #FFF9F2;
+}
+
+.uk-link, a, a:link, a:visited {
+    color: var(--main-secondary);
+}
+
+.uk-link:hover, a:hover {
+    color: var(--main-color);
+    text-decoration: none;
+}
+
+#wrapper-main {
+    width: 80%;
+    margin: 0 auto 0 auto;
+}
+
 /* ------------------------Navbar CSS------------------------ */
 
 #hero img {
     max-height: 10em;
     object-fit: cover;
     margin: 0.5em 0 0.5em 1em
+}
+
+/* ------------------------Personnes CSS------------------------ */
+
+.uk-card {
+    color: var(--main-color);
+    font-weight: bold;
 }
