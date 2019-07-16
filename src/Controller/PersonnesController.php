@@ -65,7 +65,7 @@ class PersonnesController extends AbstractController
     }
 
     /**
-     * @Route("/formateurs/{id}", name="formateurs_show")
+     * @Route("/formateurs/{id}", name="formateur_show")
      */
     public function showFormateurs(Formateur $formateur): Response
     {
@@ -87,20 +87,24 @@ class PersonnesController extends AbstractController
     public function listStagiaire(): Response
     {
         $stagiaires = $this->getDoctrine()
-                            ->getRepository(Formateur::class)
+                            ->getRepository(Stagiaire::class)
                             ->findAll();
 
-        return $this->render('personnes/form_list.html.twig', [
+        return $this->render('personnes/stag_list.html.twig', [
             'stagiaires' => $stagiaires,
         ]);
     }
 
     /**
-     * @Route("/stagiaires/{id}", name="stagiaires_show")
+     * @Route("/stagiaires/{id}", name="stagiaire_show")
      */
     public function showStagiaire(Stagiaire $stagiaire): Response
     {
-        return $this->render('personnes/form_list.html.twig', [
+        $sessions = $this->getDoctrine()
+                            ->getRepository(Session::class)
+                            ->findByStagiaire($stagiaire->getId());
+        
+        return $this->render('personnes/stag_show.html.twig', [
             'stagiaire' => $stagiaire,
         ]);
     }

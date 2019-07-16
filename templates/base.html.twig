@@ -3,18 +3,19 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Gestion de sessions de formations{% endblock %}</title>
-        {% block stylesheets %}
         <!-- UIkit CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.6/css/uikit.min.css" />   
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.6/css/uikit.min.css" />  
+        {% block stylesheets %}
+         
         {% endblock %}
     </head>
     <body>
             <header>
-                <div id="wrapper-header">
-                    <div id="hero">
-                        <a href="{{ path('forum_index') }}"><img src="{{ asset('/ressources/logoforum.png') }}" alt="Formation Banner" /></a>
-                    </div>
+                <div id="wrapper-header">   
                     <nav class="uk-navbar-container uk-navbar">
+                        <div id="hero" class="uk-navbar-left">
+                            <a href="{{ path('app_login') }}"><img src="{{ asset('/ressources/logoforum.png') }}" alt="Formation Banner" /></a>
+                        </div>
                         <div class="uk-navbar-right">
                             <ul class="uk-navbar-nav">
                                 {% if is_granted('ROLE_USER') %}
@@ -33,10 +34,12 @@
 
         {% endblock %}
 
-        {% block javascripts %}
         <!-- UIkit JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.6/js/uikit.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.6/js/uikit-icons.min.js"></script>
+        <!-- FontAwesome JS -->
+        <script src="https://kit.fontawesome.com/6277cc7eb0.js"></script>
+        {% block javascripts %}
         {% endblock %}
     </body>
 </html>
