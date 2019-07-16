@@ -5,11 +5,12 @@ namespace App\Controller;
 use App\Entity\Modul;
 use App\Entity\Session;
 use App\Entity\Categorie;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-
+use App\Entity\Stagiaire;
 use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
@@ -36,6 +37,18 @@ class FormationController extends AbstractController
         return $this->render('formation/show.html.twig',['session'=>$session]);
     }
     /**
+     * @Route("/stagiaire/{id}", name="showStagiairesByFormation", methods="GET")
+     */
+    public function showStagiairesByFormation(Session $formation){
+        $stagiaires = $this->getDoctrine()
+                           ->getRepository(Stagiaire::class)
+                           ->StagiairesByFormation($formation->getId());
+        return $this->render('formation/showStagiairesByFormation.html.twig',[
+            'stagiaires'=>$stagiaires,
+        ]);
+        
+    }
+    /**
      * @Route("/categorie", name="listAllCategories")
      */
     public function listCategories(){
@@ -54,21 +67,5 @@ class FormationController extends AbstractController
         return $this->render('formation/voirCategorie.html.twig',['categorie'=>$categorie,
         ]);
     }
-    /**
-     * @Route("/modul", name="listAllModules")
-     */
-    public function listModules(){
-        $modules = $this->getDoctrine()
-                        ->getRepository(Modul::class)
-                        ->findAll();
-
-        return $this->render('formation/listModules.html.twig',['modules'=>$modules,
-        ]);
-    }
-
-
-
-
-
 
 }

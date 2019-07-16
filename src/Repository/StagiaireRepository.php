@@ -33,15 +33,22 @@ class StagiaireRepository extends ServiceEntityRepository
     }
 
     public function StagiairesByFormation($id){
-        $entityManager = $this->getEntityManager();
-        $query = $entityManager->createQuery(
-                                'SELECT s
-                                FROM App\Entity\Stagiaire s, App\Entity\Session ss
-                                WHERE ss.id = :id
-                                GROUP BY s.id
-                                ORDER BY s.nom ASC');
-        $query->setParameter('id',$id);
-        return $query->execute();
+        // $entityManager = $this->getEntityManager();
+        // $query = $entityManager->createQuery(
+        //                         'SELECT s
+        //                         FROM App\Entity\Stagiaire s
+        //                         INNER JOIN App\Entity\Session ss
+        //                         WITH s.sessions = ss.stagiaires
+        //                         WHERE ss.id = :id');
+        // $query->setParameter('id',$id);
+        // return $query->execute();
+
+        return $this->createQueryBuilder('sta')
+                    ->innerJoin('sta.sessions', 'ses')
+                    ->where('ses.id = :id')
+                    ->setParameter('id', $id)
+                    ->getQuery()
+                    ->getResult();
     }
 
     // /**
