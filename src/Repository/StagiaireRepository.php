@@ -32,7 +32,7 @@ class StagiaireRepository extends ServiceEntityRepository
         return $query->getOneOrNullResult();
     }
 
-    public function StagiairesByFormation($id){
+    public function stagiairesByFormation($id){
         // $entityManager = $this->getEntityManager();
         // $query = $entityManager->createQuery(
         //                         'SELECT s
@@ -43,9 +43,9 @@ class StagiaireRepository extends ServiceEntityRepository
         // $query->setParameter('id',$id);
         // return $query->execute();
 
-        return $this->createQueryBuilder('sta')
-                    ->innerJoin('sta.sessions', 'ses')
-                    ->where('ses.id = :id')
+        return $this->createQueryBuilder('stagiaires')
+                    ->innerJoin('stagiaires.sessions', 'sesssion')
+                    ->where('session.id = :id')
                     ->setParameter('id', $id)
                     ->getQuery()
                     ->getResult();

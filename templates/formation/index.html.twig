@@ -31,7 +31,7 @@
                     <td>{{session.nbPlaces}}</td>
                     <td>{{session.stagiaires | length}}</td>
                     <td>{{session.nbPlaces - session.stagiaires | length }}</td>
-                    <td><a href="{{path('showOneFormation',{'id':session.id}) }}"><i class="fas fa-list-ul"></i></a></td>
+                    <td><a href="{{path('show_session',{'id':session.id}) }}"><i class="fas fa-list-ul"></i></a></td>
             </tr>
             {% endfor %}
             

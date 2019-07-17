@@ -19,6 +19,15 @@ class ComposerRepository extends ServiceEntityRepository
         parent::__construct($registry, Composer::class);
     }
 
+    public function moduleBySession($id){
+        return $this->createQueryBuilder('modulcom')
+                    ->innerJoin('modulcom.session', 'comsession')
+                    ->where('comsession.id = :id')
+                    ->setParameter('id', $id)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Composer[] Returns an array of Composer objects
     //  */

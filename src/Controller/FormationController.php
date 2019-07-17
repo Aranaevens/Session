@@ -31,25 +31,25 @@ class FormationController extends AbstractController
         ]);
     }
      /**
-     * @Route("/formation/{id}}", name="showOneFormation", methods="GET")
+     * @Route("formation/{id}", name="show_session", methods="GET")
      */
-    public function show(Session $session): Response{
-        return $this->render('formation/show.html.twig',['session'=>$session]);
+    public function showSession(Session $session): Response{
+        return $this->render('formation/show_session.html.twig',['session'=>$session]);
     }
     /**
-     * @Route("/stagiaire/{id}", name="showStagiairesByFormation", methods="GET")
+     * @Route("stagiaire/{id}", name="stagiaires_formation", methods="GET")
      */
-    public function showStagiairesByFormation(Session $formation){
+    public function stagiairesByFormation(Session $formation){
         $stagiaires = $this->getDoctrine()
                            ->getRepository(Stagiaire::class)
-                           ->StagiairesByFormation($formation->getId());
-        return $this->render('formation/showStagiairesByFormation.html.twig',[
+                           ->stagiairesByFormation($formation->getId());
+        return $this->render('formation/stagiaires_formation.html.twig',[
             'stagiaires'=>$stagiaires,
         ]);
         
     }
     /**
-     * @Route("/categorie", name="listAllCategories")
+     * @Route("/categorie", name="Categories_list")
      */
     public function listCategories(){
         $categories = $this->getDoctrine()
@@ -61,7 +61,7 @@ class FormationController extends AbstractController
         ]);
     }
     /**
-     * @Route("/categorie/{id}}", name="voirOneCategorie", methods="GET")
+     * @Route("categorie/{id}}", name="Categorie_voir", methods="GET")
      */
     public function voirCategorie(Categorie $categorie): Response{
         return $this->render('formation/voirCategorie.html.twig',['categorie'=>$categorie,
