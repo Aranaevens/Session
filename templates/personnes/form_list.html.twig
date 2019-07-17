@@ -9,20 +9,26 @@
         <thead>
             <th>Prénom</th>
             <th>Nom</th>
+            <th class="uk-width-1-6">Details</th>
+            {% if is_granted('ROLE_USER') %}
+                <th class="uk-width-1-6">Outils</th>
+            {% endif %}
         </thead>
         <tbody>
             {% for formateur in formateurs %}
                 <tr>
                     <td>{{ formateur.prenom }}</td>
                     <td>{{ formateur.nom }}</td>
-                    <td><a href="{{ path('formateur_show', {'id':formateur.id}) }}"><i class="fas fa-list-ul"></i></a></td>
+                    <td class="uk-width-1-6"><a href="{{ path('formateur_show', {'id':formateur.id}) }}"><i class="fas fa-list-ul"></i></a></td>
                     {% if is_granted('ROLE_USER') %}
-                    <td>Futurs outils de modération</td>
+                    <td class="uk-width-1-6"><a href="{{ path('formateur_edit', {'id':formateur.id}) }}"><i class="fas fa-edit"></i></a>
+                        <a href="{{ path('formateur_delete', {'id':formateur.id}) }}"><i class="fas fa-times"></i></a></td>
                     {% endif %}
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    <a class="uk-button uk-button-default uk-button-large" href="{{ path('formateur_add') }}">Nouveau</a>
 </div>
 </main>
 

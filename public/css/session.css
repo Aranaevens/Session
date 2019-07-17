@@ -12,6 +12,15 @@
     text-decoration: none;
 }
 
+.uk-width-1-6, th.uk-width-1-6 {
+    text-align: center;
+}
+
+.uk-button {
+    background-color: var(--main-color);
+    color: var(--main-secondary);
+}
+
 a i {
     color: var(--main-color)
 }
@@ -34,4 +43,15 @@ a i {
 .uk-card {
     color: var(--main-color);
     font-weight: bold;
+}
+
+#personne-detail-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.mod-tool {
+    font-size: 1.6em;
 }
