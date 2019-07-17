@@ -30,15 +30,7 @@ class ModulRepository extends ServiceEntityRepository
         return $query->getOneOrNullResult();
     }
 
-    public function moduleBySession($id){
-        return $this->createQueryBuilder('modules')
-                    ->innerJoin('modules.composer', 'modulcom')
-                    ->innerJoin('modulcom.session', 'comsession')
-                    ->where('comsession.id = :id')
-                    ->setParameter('id', $id)
-                    ->getQuery()
-                    ->getResult();
-    }
+   
     // /**
     //  * @return Modul[] Returns an array of Modul objects
     //  */
