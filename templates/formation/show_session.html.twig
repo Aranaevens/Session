@@ -4,11 +4,61 @@
 
 
 {% block body %}
+<main>
+    <div id="wrapper-main">
+        <h2>Détails de {{ formation.intitule }}</h2>
+        <ul>
+            <li>Débute le {{ formation.dateDebut | date('d/m/Y') }}</li>
+            <li>Termine le {{ formation.dateFin | date('d/m/Y') }}</li>
+            <li>Nombre de places : {{ formation.nbPlaces }} dont {{ stagiaires | length }} déjà réservées</li>
+        </ul>
+        <h3>Liste des modules</h3>
+        <table class="uk-table uk-table-striped uk-table-middle">
+            <thead>
+                <tr>
+                    <th class="uk-width-1-2">Intitulé</th>
+                    <th class="uk-width-1-2">Volume journalier</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set cat = '' %}
+                {% for duree in durees %}
+                    {% if cat != duree.module.categorie.intitule %}
+                        <tr><td colspan="2" class="session-detail-cate">{{ duree.module.categorie.intitule }}</td></tr>
+                        {% set cat = duree.module.categorie.intitule %}
+                    {% endif %}
+                    <tr>
+                        <td class="uk-width-1-2">{{ duree.module.intitule }}</td>
+                        <td class="uk-width-1-2">{{ duree.nbJours }} jours</td>
+                    </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        <h3>Liste des stagiaires inscrits</h3>
+        <table class="uk-table uk-table-striped uk-table-middle">
+                <thead>
+                    <tr>
+                        <th class="uk-width-1-3">Identité</th>
+                        <th class="uk-width-1-3">Email</th>
+                        <th class="uk-width-1-3">Téléphone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stagiaire in stagiaires %}
+                        <tr>
+                            <td class="uk-width-1-3">{{ stagiaire.prenom ~ " " ~ stagiaire.nom }}</td>
+                            <td class="uk-width-1-3">{{ stagiaire.email }}</td>
+                            <td class="uk-width-1-3">{{ stagiaire.telephone }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
+    </div>
+</main>
   
-    {% for duree in durees %}
-        <p>{{duree.module.intitule}}{{duree.nbJours}}</p>
-    {% endfor %}
+    
 
 
 

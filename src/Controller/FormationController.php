@@ -45,7 +45,7 @@ class FormationController extends AbstractController
     }
      
     /**
-     * @Route("formation/{id}", name="show_session", methods="GET")
+     * @Route("/{id}", name="show_session", methods="GET")
      */
     public function showSession(Session $formation): Response{
         $stagiaires = $this->getDoctrine()
@@ -57,7 +57,9 @@ class FormationController extends AbstractController
                         ->moduleBySession($formation->getId());                   
         
         return $this->render('formation/show_session.html.twig',[
-            'stagiaires'=>$stagiaires, 'durees'=>$durees,
+            'formation' => $formation,
+            'stagiaires'=>$stagiaires,
+            'durees'=>$durees,
         ]);   
     }
 

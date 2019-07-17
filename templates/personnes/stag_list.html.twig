@@ -9,15 +9,19 @@
         <thead>
             <th>Prénom</th>
             <th>Nom</th>
+            <th class="uk-width-1-6">Details</th>
+            {% if is_granted('ROLE_USER') %}
+                <th class="uk-width-1-6">Outils</th>
+            {% endif %}
         </thead>
         <tbody>
             {% for stagiaire in stagiaires %}
                 <tr>
                     <td>{{ stagiaire.prenom }}</td>
                     <td>{{ stagiaire.nom }}</td>
-                    <td><a href="{{ path('stagiaire_show', {'id':stagiaire.id}) }}"><i class="fas fa-list-ul"></i></a></td>
+                    <td class="uk-width-1-6"><a href="{{ path('stagiaire_show', {'id':stagiaire.id}) }}"><i class="fas fa-list-ul"></i></a></td>
                     {% if is_granted('ROLE_USER') %}
-                    <td><a href="{{ path('stagiaire_edit', {'id':stagiaire.id}) }}"><i class="fas fa-edit"></i></a>
+                    <td class="uk-width-1-6"><a href="{{ path('stagiaire_edit', {'id':stagiaire.id}) }}"><i class="fas fa-edit"></i></a>
                         <a href="{{ path('stagiaire_delete', {'id':stagiaire.id}) }}"><i class="fas fa-times"></i></a></td>
                     {% endif %}
                 </tr>
