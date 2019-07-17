@@ -4,4 +4,9 @@
 
 {% block body %}
 
+{% for module in session.composer.modules %}
+    <p>{{module.intitule}}</p>  
+
+{% endfor %}
+
 {% endblock %}
