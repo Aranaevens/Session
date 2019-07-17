@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des formateurs{% endblock %}
+
+{% block body %}
+<main>
+<div id="wrapper-main">
+    <table class="uk-table uk-table-striped uk-table-middle">
+        <thead>
+            <th class="uk-width-1-5">Intitulé</th>
+            <th>Formations proposant ce module</th>
+            {% if is_granted('ROLE_USER') %}
+                <th class="uk-width-1-6">Outils</th>
+            {% endif %}
+        </thead>
+        <tbody>
+            {% set cat = '' %}
+            {% for module in modules %}
+                <tr>
+                    {% if cat != module.categorie.intitule %}
+                        <tr><td colspan="2" class="session-detail-cate">{{ module.categorie.intitule }}</td></tr>
+                    {% set cat = module.categorie.intitule %}
+                    {% endif %}
+                    <td>{{ module.intitule }}</td>
+                    <td>{{ render(controller('App\\Controller\\FormationController::showModule', {'id': module.id})) }}</td>
+                    {% if is_granted('ROLE_USER') %}
+                    <td class="uk-width-1-6"><a href="{{ path('formateur_edit', {'id':formateur.id}) }}"><i class="fas fa-edit"></i></a>
+                        <a href="{{ path('formateur_delete', {'id':formateur.id}) }}"><i class="fas fa-times"></i></a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- TODO -->
+    <!-- <a class="uk-button uk-button-default uk-button-large" href="{{ path('formateur_add') }}">Nouveau</a> -->
+    
+</div>
+</main>
+
+{% endblock %}

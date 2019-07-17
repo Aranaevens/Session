@@ -32,18 +32,33 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FormationController extends AbstractController
 {
     /**
-     * @Route("/", name="formations_list")
+     * @Route("/modules", name="modules_list")
      */
-    public function listFormations(){
-        $sessions = $this->getDoctrine()
-                         ->getRepository(Session::class)
+    public function listModules(): Response
+    {
+        $modules = $this->getDoctrine()
+                         ->getRepository(Modul::class)
                          ->findAll();
 
-        return $this->render('formation/index.html.twig', [
+        return $this->render('formation/modules_list.html.twig', [
+            'modules' => $modules,
+        ]);
+    }
+
+    /**
+     * @Route("/modules/{id}", name="module_show")
+     */
+    public function showModule(Modul $module): Response
+    {
+        $sessions = $this->getDoctrine()
+                         ->getRepository(Session::class)
+                         ->findByModule($module->getId());
+
+        return $this->render('formation/modules_show.html.twig', [
             'sessions' => $sessions,
         ]);
     }
-     
+
     /**
      * @Route("/{id}", name="show_session", methods="GET")
      */
@@ -61,6 +76,19 @@ class FormationController extends AbstractController
             'stagiaires'=>$stagiaires,
             'durees'=>$durees,
         ]);   
+    }
+
+    /**
+     * @Route("/", name="formations_list")
+     */
+    public function listFormations(): Response{
+        $sessions = $this->getDoctrine()
+                         ->getRepository(Session::class)
+                         ->findAll();
+
+        return $this->render('formation/index.html.twig', [
+            'sessions' => $sessions,
+        ]);
     }
 
 }

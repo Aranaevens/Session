@@ -1,0 +1,7 @@
+{% for session in sessions %}
+{% if not loop.last %}
+{{ session.intitule ~ ", " }}
+{% else %}
+{{ session.intitule }}
+{% endif %}
+{% endfor %}
