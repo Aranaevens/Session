@@ -19,7 +19,16 @@ class CategorieRepository extends ServiceEntityRepository
         parent::__construct($registry, Categorie::class);
     }
 
-
+    // Renvoie les catégories d'enseignement d'UN formateur
+    public function findByFormateur($form_id)
+    {
+        return $this->createQueryBuilder('c')
+                    ->innerJoin('c.formateurs', 'f')
+                    ->where('f.id = :id')
+                    ->setParameter('id', $id)
+                    ->getQuery()
+                    ->getResult();
+    }
     // /**
     //  * @return Categorie[] Returns an array of Categorie objects
     //  */

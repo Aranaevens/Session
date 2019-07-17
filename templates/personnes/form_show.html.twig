@@ -29,6 +29,12 @@
             <li><strong>{{ formation.intitule }}</strong> (du {{ formation.dateDebut | date('d/m/Y') }} au {{ formation.dateFin | date('d/m/Y') }})</li>
             {% endfor %}
         </ul>
+        <h4>Matières enseignées</h4>
+        <ul>
+            {% for categorie in categories %}
+            <li>{{ categorie.intitule }}</li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
 </main>
