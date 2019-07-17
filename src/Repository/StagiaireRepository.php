@@ -44,7 +44,7 @@ class StagiaireRepository extends ServiceEntityRepository
         // return $query->execute();
 
         return $this->createQueryBuilder('stagiaires')
-                    ->innerJoin('stagiaires.sessions', 'sesssion')
+                    ->innerJoin('stagiaires.sessions', 'session')
                     ->where('session.id = :id')
                     ->setParameter('id', $id)
                     ->getQuery()

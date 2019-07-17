@@ -4,12 +4,25 @@ namespace App\Controller;
 
 use App\Entity\Modul;
 use App\Entity\Session;
+use App\Entity\Composer;
 use App\Entity\Categorie;
+use App\Entity\Formateur;
 use App\Entity\Stagiaire;
+
 use Symfony\Component\HttpFoundation\Request;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
+
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -30,24 +43,24 @@ class FormationController extends AbstractController
             'sessions' => $sessions,
         ]);
     }
-     /**
+     
+    /**
      * @Route("formation/{id}", name="show_session", methods="GET")
      */
-    public function showSession(Session $session): Response{
-        return $this->render('formation/show_session.html.twig',['session'=>$session]);
-    }
-    /**
-     * @Route("stagiaire/{id}", name="stagiaires_formation", methods="GET")
-     */
-    public function stagiairesByFormation(Session $formation){
+    public function showSession(Session $formation): Response{
         $stagiaires = $this->getDoctrine()
                            ->getRepository(Stagiaire::class)
                            ->stagiairesByFormation($formation->getId());
-        return $this->render('formation/stagiaires_formation.html.twig',[
-            'stagiaires'=>$stagiaires,
-        ]);
+
+        $durees = $this->getDoctrine()
+                       ->getRepository(Composer::class)
+                        ->moduleBySession($formation->getId());                   
         
+        return $this->render('formation/show_session.html.twig',[
+            'stagiaires'=>$stagiaires, 'durees'=>$durees,
+        ]);   
     }
+
     /**
      * @Route("/categorie", name="Categories_list")
      */

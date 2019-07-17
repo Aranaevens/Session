@@ -5,8 +5,11 @@
 
 {% block body %}
 
-{% for composer in session.composer %}
-<p>{{ composer.categorie.intitule }}</p> 
-{% endfor %}
+  
+    {% for duree in durees %}
+        <p>{{duree.module.intitule}}{{duree.nbJours}}</p>
+    {% endfor %}
+
+
 
 {% endblock %}
