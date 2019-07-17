@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block body %}
+
+<main>
+    <div id="wrapper-main">
+        <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+            <div>
+                <a class="a-ingrid" href="{{ path('stagiaires_list') }}"><div class="uk-card uk-card-default uk-card-body">Stagiaires</div></a>
+            </div>
+            <div>
+                <a class="a-ingrid" href="{{ path('formateurs_list') }}"><div class="uk-card uk-card-default uk-card-body">Formateurs</div></a>
+            </div>
+        </div>
+        <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+                <div>
+                    <a class="a-ingrid" href="{{ path('formations_list') }}"><div class="uk-card uk-card-default uk-card-body">Formations</div></a>
+                </div>
+                <div>
+                    <a class="a-ingrid" href="{{ path('formateurs_list') }}"><div class="uk-card uk-card-default uk-card-body">Modules</div></a>
+                </div>
+        </div>
+        </div>
+        </main>
+
+{% endblock %}

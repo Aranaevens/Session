@@ -32,9 +32,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FormationController extends AbstractController
 {
     /**
-     * @Route("/", name="listAllFormations")
+     * @Route("/", name="formations_list")
      */
-    public function index(){
+    public function listFormations(){
         $sessions = $this->getDoctrine()
                          ->getRepository(Session::class)
                          ->findAll();
@@ -61,26 +61,6 @@ class FormationController extends AbstractController
             'stagiaires'=>$stagiaires,
             'durees'=>$durees,
         ]);   
-    }
-
-    /**
-     * @Route("/categorie", name="Categories_list")
-     */
-    public function listCategories(){
-        $categories = $this->getDoctrine()
-                           ->getRepository(Categorie::class)
-                           ->findAll();
-
-        return $this->render('formation/listCategories.html.twig',[ 
-            'categories'=>$categories,
-        ]);
-    }
-    /**
-     * @Route("categorie/{id}}", name="Categorie_voir", methods="GET")
-     */
-    public function voirCategorie(Categorie $categorie): Response{
-        return $this->render('formation/voirCategorie.html.twig',['categorie'=>$categorie,
-        ]);
     }
 
 }
