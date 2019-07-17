@@ -12,6 +12,10 @@
     text-decoration: none;
 }
 
+a i {
+    color: var(--main-color)
+}
+
 #wrapper-main {
     width: 80%;
     margin: 0 auto 0 auto;

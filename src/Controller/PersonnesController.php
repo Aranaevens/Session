@@ -2,22 +2,28 @@
 
 namespace App\Controller;
 
-use App\Entity\Formateur;
-use App\Entity\Stagiaire;
-use App\Entity\Categorie;
-use App\Entity\Composer;
 use App\Entity\Modul;
 use App\Entity\Session;
-
-use Doctrine\Common\Persistence\ObjectManager;
-
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Composer;
+use App\Entity\Categorie;
+use App\Entity\Formateur;
+use App\Entity\Stagiaire;
 
 use Symfony\Component\HttpFoundation\Request;
+
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
+
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
@@ -107,6 +113,65 @@ class PersonnesController extends AbstractController
         return $this->render('personnes/stag_show.html.twig', [
             'stagiaire' => $stagiaire,
             'sessions' => $sessions,
+        ]);
+    }
+
+    /**
+     * @Route("/stagiaires/add", name="stagiaire_add")
+     * @Route("/stagiaires/{id}/edit", name="stagiaire_edit")
+     */
+    public function addSalarie(Stagiaire $stagiaire = null, Request $request, ObjectManager $manager)
+    {
+        if (!$stagiaire)
+        {
+            $stagiaire = new Stagiaire();
+        }
+
+        $form = $this->createFormBuilder($stagiaire)
+                    ->add('nom',TextType::class, [
+                        'required' => true,
+                        'label' => 'Nom',
+                    ])
+                    ->add('prenom',TextType::class, [
+                        'required' => true,
+                        'label' => 'Prénom',
+                    ])
+                    ->add('genre',ChoiceType::class, [
+                        'required' => true,
+                        'label' => 'Genre',
+                        'choices' => ['Homme' => 'M', 'Femme' => 'F'],
+                    ])
+                    ->add('datenaissance',DateType::class, [
+                        'required' => true,
+                        'years' => range(date('Y'),date('Y')-70),
+                        'label' => 'Date de naissance',
+                        'format' => 'ddMMyyyy'
+                    ])
+                    ->add('ville',TextType::class, [
+                        'required' => true,
+                        'label' => 'Ville',
+                    ])
+                    ->add('email', EmailType::class, [
+                        'required' => true,
+                        'label' => 'Adresse e-mail'])
+                    ->add('telephone', TelType::class, [
+                        'required' => true,
+                        'label' => 'Numéro de Téléphone'])
+                    ->add('Valider', SubmitType::class)
+                    ->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($stagiaire);
+            $manager->flush();
+
+            return $this->redirectToRoute('stagiaires_list');
+        }
+
+        return $this->render('personnes/add_edit_stag.html.twig', [
+            'form' => $form->createView(),
+            'editMode' => $salarie->getId() !== null
         ]);
     }
 }
