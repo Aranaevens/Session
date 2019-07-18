@@ -9,14 +9,15 @@ use App\Entity\Categorie;
 use App\Entity\Formateur;
 use App\Entity\Stagiaire;
 
+use App\Form\SessionType;
+
 use Symfony\Component\HttpFoundation\Request;
-
 use Doctrine\Common\Persistence\ObjectManager;
+
 use Symfony\Component\HttpFoundation\Response;
-
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\TelType;
 
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -109,6 +110,29 @@ class FormationController extends AbstractController
         $manager->flush();
 
         return $this->redirectToRoute('modules_list');
+    }
+
+     /**
+     * @Route("/sessions/add", name="session_add")
+     */
+    public function addSession(Request $request, ObjectManager $manager)
+    {
+            $session = new Session();
+        
+        $form = $this->createForm(SessionType::class, $session);           
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($session);
+            $manager->flush();
+
+            return $this->redirectToRoute('formations_list');
+        }
+
+        return $this->render('formation/add_session.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 }
