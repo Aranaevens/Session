@@ -68,19 +68,6 @@ class SessionRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
-    // Renvoie toutes les formations où UN module est enseigné
-    public function findByModule($module_id)
-    {
-        return $this->createQueryBuilder('ses')
-                    ->innerJoin('ses.composer', 'comp')
-                    ->innerJoin('comp.module', 'm')
-                    ->where('m.id = :id')
-                    ->setParameter('id', $module_id)
-                    ->orderBy('ses.intitule', 'ASC')
-                    ->getQuery()
-                    ->getResult();
-    }
-
 
     // /**
     //  * @return Session[] Returns an array of Session objects

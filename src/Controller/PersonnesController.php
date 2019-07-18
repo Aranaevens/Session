@@ -71,7 +71,7 @@ class PersonnesController extends AbstractController
      * @Route("/formateurs/add", name="formateur_add")
      * @Route("/formateurs/{id}/edit", name="formateur_edit")
      */
-    public function addFormateur(Forrmateur $formateur = null, Request $request, ObjectManager $manager)
+    public function addFormateur(Formateur $formateur = null, Request $request, ObjectManager $manager)
     {
         if (!$formateur)
         {
