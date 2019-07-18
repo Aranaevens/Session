@@ -1,0 +1,25 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer un utilisateur{% endblock %}
+
+{% block body %}
+
+<div id="wrapper-main">
+        {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {% if is_granted('ROLE_ADMIN') %}
+        {{ form_label(form.role) }} <br />
+        {{ form_errors(form.role) }}
+        {{ form_widget(form.role, {attr: {'class': 'uk-select' }}) }} <br />
+        {% endif %}
+        {{ form_label(form.plainPassword.first) }} <br />
+        {{ form_errors(form.plainPassword.first) }}
+        {{ form_widget(form.plainPassword.first, {attr: {'class': 'uk-input' }}) }} <br />
+        {{ form_label(form.plainPassword.second) }} <br />
+        {{ form_errors(form.plainPassword.second) }}
+        {{ form_widget(form.plainPassword.second, {attr: {'class': 'uk-input' }}) }} <br /><br />
+        {{ form_end(form) }}
+</div>
+
+{% endblock %}
