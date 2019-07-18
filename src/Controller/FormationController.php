@@ -91,4 +91,24 @@ class FormationController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/formations/{id}", name="session_delete")
+     */
+    public function deleteSession(Session $session, ObjectManager $manager) : Response {
+        $manager->remove($session);
+        $manager->flush();
+
+        return $this->redirectToRoute('formations_list');
+    }
+
+    /**
+     * @Route("/modules/{id}", name="module_delete")
+     */
+    public function deleteModule(Modul $module, ObjectManager $manager) : Response {
+        $manager->remove($module);
+        $manager->flush();
+
+        return $this->redirectToRoute('modules_list');
+    }
+
 }
