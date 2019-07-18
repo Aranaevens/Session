@@ -135,7 +135,7 @@ class FormationController extends AbstractController
     }
     
     /**
-     * @Route("/sessions/edit/{id}", name=session_edit)
+     * @Route("/sessions/edit/{id}", name="session_edit")
      */
     public function editSession(Session $session, Request $request, ObjectManager $manager)
     {
