@@ -30,6 +30,15 @@ class ModulRepository extends ServiceEntityRepository
         return $query->getOneOrNullResult();
     }
 
+    public function findAllOrder()
+    {
+        return $this->createQueryBuilder('m')
+                    ->innerJoin('m.categorie', 'c')
+                    ->orderBy('c.intitule')
+                    ->getQuery()
+                    ->getResult();
+    }
+
    
     // /**
     //  * @return Modul[] Returns an array of Modul objects
