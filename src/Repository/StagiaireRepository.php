@@ -32,6 +32,7 @@ class StagiaireRepository extends ServiceEntityRepository
         return $query->getOneOrNullResult();
     }
     // renvoie la liste des stagiaires inscrit dans une formation
+
     public function stagiairesByFormation($id){
         // $entityManager = $this->getEntityManager();
         // $query = $entityManager->createQuery(
@@ -42,7 +43,6 @@ class StagiaireRepository extends ServiceEntityRepository
         //                         WHERE ss.id = :id');
         // $query->setParameter('id',$id);
         // return $query->execute();
-
         return $this->createQueryBuilder('stagiaires')
                     ->innerJoin('stagiaires.sessions', 'session')
                     ->where('session.id = :id')
