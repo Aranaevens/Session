@@ -50,12 +50,12 @@ class FormationController extends AbstractController
      */
     public function showModule(Modul $module): Response
     {
-        $sessions = $this->getDoctrine()
-                         ->getRepository(Session::class)
+        $durees = $this->getDoctrine()
+                         ->getRepository(Composer::class)
                          ->findByModule($module->getId());
 
         return $this->render('formation/modules_show.html.twig', [
-            'sessions' => $sessions,
+            'durees' => $durees,
         ]);
     }
 

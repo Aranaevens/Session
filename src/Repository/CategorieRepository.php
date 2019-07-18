@@ -25,7 +25,7 @@ class CategorieRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
                     ->innerJoin('c.formateurs', 'f')
                     ->where('f.id = :id')
-                    ->setParameter('id', $id)
+                    ->setParameter('id', $form_id)
                     ->getQuery()
                     ->getResult();
     }

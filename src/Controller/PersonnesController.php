@@ -71,7 +71,7 @@ class PersonnesController extends AbstractController
      * @Route("/formateurs/add", name="formateur_add")
      * @Route("/formateurs/{id}/edit", name="formateur_edit")
      */
-    public function addFormateur(Forrmateur $formateur = null, Request $request, ObjectManager $manager)
+    public function addFormateur(Formateur $formateur = null, Request $request, ObjectManager $manager)
     {
         if (!$formateur)
         {
@@ -172,8 +172,8 @@ class PersonnesController extends AbstractController
                             ->findByFormateur($formateur->getId());
 
         $categories = $this->getDoctrine()
-                            ->getRepository(Formateur::class)
-                            ->findAll();
+                            ->getRepository(Categorie::class)
+                            ->findByFormateur($formateur->getId());
         
         return $this->render('personnes/form_show.html.twig', [
             'formateur' => $formateur,

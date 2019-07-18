@@ -1,7 +1,7 @@
-{% for session in sessions %}
+{% for duree in durees %}
 {% if not loop.last %}
-{{ session.intitule ~ ", " }}
+{{ duree.session.intitule ~ " (" ~ duree.nbJours ~ ")" ~ ", " }}
 {% else %}
-{{ session.intitule }}
+{{ duree.session.intitule ~ " (" ~ duree.nbJours ~ ")" }}
 {% endif %}
 {% endfor %}

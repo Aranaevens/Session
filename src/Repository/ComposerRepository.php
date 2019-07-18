@@ -28,6 +28,19 @@ class ComposerRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    // Renvoie toutes les formations où UN module est enseigné
+    public function findByModule($module_id)
+    {
+        return $this->createQueryBuilder('comp')
+                    ->innerJoin('comp.session', 'ses')
+                    ->innerJoin('comp.module', 'm')
+                    ->where('m.id = :id')
+                    ->setParameter('id', $module_id)
+                    ->orderBy('ses.intitule', 'ASC')
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Composer[] Returns an array of Composer objects
     //  */
