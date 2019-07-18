@@ -4,7 +4,7 @@
 {% block title %}Ajouter un module à {{ session.intitule }}{% endblock %}
 
 {% block body %}
-
+<main>
 <div id="wrapper-main">
     {{ form_start(form) }}
     {{ form_row(form.module) }}
@@ -14,5 +14,5 @@
     {{ form_widget(form.comeback) }}
     {{ form_end(form) }}
 </div>
-
+</main>
 {% endblock %}
