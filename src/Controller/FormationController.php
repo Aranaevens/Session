@@ -121,7 +121,6 @@ class FormationController extends AbstractController
         
         $form = $this->createForm(SessionType::class, $session);           
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid())
         {
             $manager->persist($session);
@@ -131,6 +130,27 @@ class FormationController extends AbstractController
         }
 
         return $this->render('formation/add_session.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+    
+    /**
+     * @Route("/sessions/edit/{id}", name=session_edit)
+     */
+    public function editSession(Session $session, Request $request, ObjectManager $manager)
+    {
+        
+        $form = $this->createForm(SessionType::class, $session);           
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($session);
+            $manager->flush();
+
+            return $this->redirectToRoute('formations_list');
+        }
+
+        return $this->render('formation/edit_session.html.twig', [
             'form' => $form->createView(),
         ]);
     }
