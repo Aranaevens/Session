@@ -32,7 +32,7 @@ class ComposerRepository extends ServiceEntityRepository
     public function findByModule($module_id)
     {
         return $this->createQueryBuilder('comp')
-                    ->innerJoin('composer.session', 'ses')
+                    ->innerJoin('comp.session', 'ses')
                     ->innerJoin('comp.module', 'm')
                     ->where('m.id = :id')
                     ->setParameter('id', $module_id)
