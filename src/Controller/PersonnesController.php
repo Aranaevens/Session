@@ -131,7 +131,11 @@ class PersonnesController extends AbstractController
                             'class' => 'uk-input uk-form-small uk-form-width-medium'
                         ],
                         ])
-                    ->add('Valider', SubmitType::class)
+                    ->add('Valider', SubmitType::class, [
+                        'attr' => [
+                            'class' => 'uk-button'
+                        ]
+                    ])
                     ->getForm();
         $form->handleRequest($request);
 
@@ -231,10 +235,11 @@ class PersonnesController extends AbstractController
                     ])
                     ->add('datenaissance',DateType::class, [
                         'required' => true,
-                        'widget' => 'choice',
-                        'years' => range(date('Y'),date('Y')-80),
+                        'widget' => 'single_text',
+                        // 'years' => range(date('Y'),date('Y')-80),
                         'label' => 'Date de naissance',
-                        'format' => 'ddMMyyyy',
+                        // 'format' => 'dd-MM-yyyy',
+
                     ])
                     ->add('ville',TextType::class, [
                         'required' => true,
@@ -257,7 +262,11 @@ class PersonnesController extends AbstractController
                             'class' => 'uk-input uk-form-small uk-form-width-medium'
                         ],
                         ])
-                    ->add('Valider', SubmitType::class)
+                    ->add('Valider', SubmitType::class, [
+                        'attr' => [
+                            'class' => 'uk-button'
+                        ]
+                    ])
                     ->getForm();
         $form->handleRequest($request);
 

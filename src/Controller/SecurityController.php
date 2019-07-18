@@ -52,7 +52,11 @@ class SecurityController extends AbstractController
         }
 
         $form = $this->createForm(UserType::class, $user)
-                        ->add('Valider', SubmitType::class);
+                        ->add('Valider', SubmitType::class, [
+                            'attr' => [
+                                'class' => 'uk-button'
+                            ]
+                        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
