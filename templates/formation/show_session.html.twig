@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion d'individus{% endblock %}
+{% block title %}Gestion des formations{% endblock %}
 
 
 {% block body %}
@@ -32,9 +32,9 @@
                         <td class="uk-width-1-2">{{ duree.nbJours }} jours</td>
                     </tr>
                 {% endfor %}
-                
             </tbody>
         </table>
+        <a class="uk-button uk-button-default uk-button-large" href="">Ajouter Module</a>
         <h3>Liste des stagiaires inscrits</h3>
         <table class="uk-table uk-table-striped uk-table-middle">
                 <thead>
@@ -53,13 +53,10 @@
                         </tr>
                     {% endfor %}
                 </tbody>
+               
             </table>
-
+            <a class="uk-button uk-button-default uk-button-large" href="">Ajouter Stagiaire</a>
     </div>
 </main>
-  
-    
-
-
 
 {% endblock %}
