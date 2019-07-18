@@ -28,14 +28,6 @@ class ModuleType extends AbstractType
                 'class' => Categorie::class,
                 'choice_label' => 'intitule'
             ])
-            ->add('nbjours', IntegerType::class,[
-                'mapped' => false,
-                'required' => true,
-                'label' => 'Nombre de jours du module',
-                'attr' => [
-                'class' => 'uk-input'
-                ],
-            ])
             ->add('valider', SubmitType::class,[
                 'attr'=>[
                     'class'=>'uk-button',

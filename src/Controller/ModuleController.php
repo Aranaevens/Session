@@ -6,6 +6,7 @@ use App\Entity\Modul;
 use App\Entity\Composer;
 use App\Form\ModuleType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,32 +18,29 @@ class ModuleController extends AbstractController
 {
     /**
      * @Route("/add", name="module_add")
+     * @Route("/{id}/edit", name="module_edit")
      */
-    public function addModule(Request $request, ObjectManager $manager)
+    public function addModule(Modul $module = null, Request $request, ObjectManager $manager): Response
     {
-        $module = new Modul();
-
+        if ($module)
+        {
+            $module = new Modul();
+        }
         $form = $this->createForm(ModuleType::class, $module);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
 
             $manager->persist($module);
-
-            // $duree = new Composer();
-            // $duree->setNbJours($form->get('nbjours')->getData());
-            // $duree->setSession($formation);
-            // $duree->setModule($module);
-            // $manager->persist($duree);
-            
             $manager->flush();
 
             return $this->redirectToRoute('modules_list');
         }
-        return $this->render('formation/add_module.html.twig',[
+        return $this->render('module/add_edit.html.twig',[
             'form'=>$form->createView(),
         ]);
     }
+
 
     /**
      * @Route("/{id}/delete", name="module_delete")
@@ -63,7 +61,7 @@ class ModuleController extends AbstractController
                          ->getRepository(Composer::class)
                          ->findByModule($module->getId());
 
-        return $this->render('formation/modules_show.html.twig', [
+        return $this->render('module/modules_show.html.twig', [
             'durees' => $durees,
         ]);
     }
@@ -77,7 +75,7 @@ class ModuleController extends AbstractController
                          ->getRepository(Modul::class)
                          ->findAll();
 
-        return $this->render('formation/modules_list.html.twig', [
+        return $this->render('module/modules_list.html.twig', [
             'modules' => $modules,
         ]);
     }

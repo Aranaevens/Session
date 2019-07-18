@@ -40,8 +40,8 @@ class ModuleSessionType extends AbstractType
                 'attr' => [
                     'class' => 'uk-button'
                 ],
-            ])
-        ;
+            ]);
+        
     }
 
     public function configureOptions(OptionsResolver $resolver)

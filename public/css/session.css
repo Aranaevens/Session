@@ -97,7 +97,7 @@ dl {
     text-align: center;
 }
 
-#stagiaire_session_stagiaire label:after{
+#stagiaire_session_stagiaire label:after, #module_categorie_module label:after, #formateur_categorie_formateur label:after{
     content:"\a";
     white-space: pre;
 }
