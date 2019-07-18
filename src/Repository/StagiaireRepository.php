@@ -31,7 +31,7 @@ class StagiaireRepository extends ServiceEntityRepository
         $query->setParameter('prenom', $prenom);
         return $query->getOneOrNullResult();
     }
-
+    // renvoie la liste des stagiaires inscrit dans une formation
     public function stagiairesByFormation($id){
         // $entityManager = $this->getEntityManager();
         // $query = $entityManager->createQuery(
