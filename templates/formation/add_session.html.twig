@@ -1,8 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter Session {% endblock %}
+{% block title %}Ajouter une session {% endblock %}
 
 {% block body %}
-<h1>Formulaire d'ajout des sessions de formations</h1>
-{{form(form)}}
+<main>
+    <div id="wrapper-main">
+        {{form(form)}}
+    </div>
+</main>
+
 {% endblock %}

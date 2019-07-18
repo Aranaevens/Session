@@ -96,3 +96,8 @@ dl {
     background-color: var(--main-tertiary);
     text-align: center;
 }
+
+#stagiaire_session_stagiaire label:after{
+    content:"\a";
+    white-space: pre;
+}
