@@ -19,7 +19,7 @@
                 <tr>
                     {% if cat != module.categorie.intitule %}
                         <tr><td colspan="2" class="session-detail-cate">{{ module.categorie.intitule }}</td></tr>
-                    {% set cat = module.categorie.intitule %}
+                        {% set cat = module.categorie.intitule %}
                     {% endif %}
                     <td>{{ module.intitule }}</td>
                     <td>{{ render(controller('App\\Controller\\FormationController::showModule', {'id': module.id})) }}</td>

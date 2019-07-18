@@ -229,9 +229,7 @@ class PersonnesController extends AbstractController
                         'choices' => ['Homme' => 'M', 'Femme' => 'F'],
                         'expanded' => true,
                         'multiple' => false,
-                        'attr' => [
-                            'type' => 'radio'
-                        ],
+                        // 'empty_data' => 'Homme',
                     ])
                     ->add('datenaissance',DateType::class, [
                         'required' => true,
