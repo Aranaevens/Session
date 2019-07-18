@@ -58,6 +58,15 @@ a i {
     justify-content: space-between;
 }
 
+#personne-detail-box>h3 {
+    margin: 0.5em 0 0.5em 0;
+}
+
+#personne-detail-header h3 {
+    margin: 0.5em 1em 0.5em 1em;
+    color: var(--main-color);
+}
+
 .mod-tool {
     font-size: 1.6em;
 }
@@ -73,6 +82,8 @@ a i {
 
 dt {
     display: inline;
+    font-weight: bold;
+    color: var(--main-color);
 }
 
 dl {
