@@ -34,7 +34,7 @@
                 {% endfor %}
             </tbody>
         </table>
-        <a class="uk-button uk-button-default uk-button-large" href="">Ajouter Module</a>
+        <a class="uk-button uk-button-default uk-button-large" href="{{path('module_add', {'id':formation.id})}}">Ajouter Module</a>
         <h3>Liste des stagiaires inscrits</h3>
         <table class="uk-table uk-table-striped uk-table-middle">
                 <thead>
@@ -55,7 +55,7 @@
                 </tbody>
                
             </table>
-            <a class="uk-button uk-button-default uk-button-large" href="">Ajouter Stagiaire</a>
+            <a class="uk-button uk-button-default uk-button-large" href="{{ path('stagiaire_add') }}">Ajouter Stagiaire</a>
     </div>
 </main>
 

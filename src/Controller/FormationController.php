@@ -5,18 +5,19 @@ namespace App\Controller;
 use App\Entity\Modul;
 use App\Entity\Session;
 use App\Entity\Composer;
+use App\Form\ModuleType;
 use App\Entity\Categorie;
 use App\Entity\Formateur;
+
 use App\Entity\Stagiaire;
 
 use App\Form\SessionType;
-
 use Symfony\Component\HttpFoundation\Request;
+
 use Doctrine\Common\Persistence\ObjectManager;
-
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,6 +33,38 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class FormationController extends AbstractController
 {
+    /**
+     * @Route("/modules/{id}/add", name="module_add")
+     */
+    public function addModuleByFormationAndCategorie(Session $formation, Request $request, ObjectManager $manager)
+    {
+        $module = new Modul();
+
+        $form = $this->createForm(ModuleType::class, $module);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $manager->persist($module);
+
+            $duree = new Composer();
+            $duree->setNbJours($form->get('nbjours')->getData());
+            $duree->setSession($formation);
+            $duree->setModule($module);
+            $manager->persist($duree);
+            
+            $manager->flush();
+
+            return $this->redirectToRoute('modules_list');
+        }
+        return $this->render('formation/add_module.html.twig',[
+            'form'=>$form->createView(),
+        ]);
+
+
+
+    }
+    
     /**
      * @Route("/modules", name="modules_list")
      */
@@ -111,13 +144,16 @@ class FormationController extends AbstractController
 
         return $this->redirectToRoute('modules_list');
     }
+    
+    
+
 
      /**
      * @Route("/sessions/add", name="session_add")
      */
     public function addSession(Request $request, ObjectManager $manager)
     {
-            $session = new Session();
+        $session = new Session();
         
         $form = $this->createForm(SessionType::class, $session);           
         $form->handleRequest($request);
@@ -133,7 +169,7 @@ class FormationController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
+
     /**
      * @Route("/sessions/edit/{id}", name="session_edit")
      */
@@ -154,5 +190,26 @@ class FormationController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/modules/edit/{id}", name="module_edit")
+     */
+    public function editModule(Modul $module, Request $request, ObjectManager $manager)
+    {
+        
+        $form = $this->createForm(ModuleType::class, $module);           
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($module);
+            $manager->flush();
+
+            return $this->redirectToRoute('modules_list');
+        }
+
+        return $this->render('formation/edit_module.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
 
 }
