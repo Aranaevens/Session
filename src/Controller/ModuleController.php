@@ -22,7 +22,7 @@ class ModuleController extends AbstractController
      */
     public function addModule(Modul $module = null, Request $request, ObjectManager $manager): Response
     {
-        if ($module)
+        if (!$module)
         {
             $module = new Modul();
         }
