@@ -5,11 +5,12 @@
 {% block body %}
 <main>
 <div id="wrapper-main">
-    <h2>Choisir le(s) stagiaire(s) à ajouter</h2>
+    <!-- <h2>Choisir le(s) stagiaire(s) à ajouter</h2> -->
     {{ form_start(form) }}
-    {{ form_widget(form.stagiaire) }}
+    {{ form_row(form.stagiaire) }}
     <br />
-    {{ form_row(form.ajouter) }}
+    {{ form_widget(form.back) }}
+    {{ form_widget(form.comeback) }}
     {{ form_end(form) }}
 </div>
 </main>

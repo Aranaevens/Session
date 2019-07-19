@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Modul;
+use App\Entity\Session;
 use App\Entity\Stagiaire;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,11 +22,21 @@ class StagiaireSessionType extends AbstractType
                 'choice_label' => function (Stagiaire $stag) {
                     return $stag->getPrenom() . " " . $stag->getNom();
                 },
-                'multiple' => true,
-                'expanded' => true,
+                'attr' => [
+                    'class' => 'uk-select'
+                ],
+                // 'multiple' => true,
+                // 'expanded' => true,
+                // 'by_reference' => false,
             ])
-            ->add('ajouter', SubmitType::class, [
-                'label' => 'Ajouter',
+            ->add('back', SubmitType::class, [
+                'label' => 'Ajouter et revenir',
+                'attr' => [
+                    'class' => 'uk-button'
+                ],
+            ])
+            ->add('comeback', SubmitType::class, [
+                'label' => 'Ajouter puis ajouter un autre',
                 'attr' => [
                     'class' => 'uk-button'
                 ],
@@ -36,7 +47,7 @@ class StagiaireSessionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            //
         ]);
     }
 }

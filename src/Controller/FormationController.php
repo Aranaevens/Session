@@ -88,7 +88,7 @@ class FormationController extends AbstractController
 
             $flag = false;
 
-            $nextAction = $form->get('back')->isClicked() ? 'show_session' : 'session_addModule';
+            $nextAction = $form->get('back')->isClicked() ? 'show_session' : 'session_add_module';
             return $this->redirectToRoute($nextAction, [
                 'id' => $session->getId()
             ]);
@@ -117,20 +117,25 @@ class FormationController extends AbstractController
         }
         
         $form = $this->createForm(StagiaireSessionType::class);
+        $flag = true;
         $form->handleRequest($request);
         
         
         if ($form->isSubmitted() && $form->isValid() && $flag)
         {
-            foreach ($form->get('stagiaire')->getData() as $stagiaire)
-            {
-                $session->addStagiaire($stagiaire);
-            }
+            $session->addStagiaire($form->get('stagiaire')->getData());
             $manager->flush();
 
-            return $this->redirectToRoute('show_session', [
+            $flag = false;
+
+            $nextAction = $form->get('back')->isClicked() ? 'show_session' : 'session_add_stagiaire';
+            return $this->redirectToRoute($nextAction, [
                 'id' => $session->getId()
             ]);
+
+            // return $this->redirectToRoute('show_session', [
+            //     'id' => $session->getId()
+            // ]);
         }
 
         return $this->render('formation/add_stagiaire.html.twig', [
@@ -148,11 +153,6 @@ class FormationController extends AbstractController
 
         return $this->redirectToRoute('formations_list');
     }
-
-    
-    
-    
-
 
      /**
      * @Route("/sessions/add", name="session_add")
