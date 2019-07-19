@@ -27,6 +27,10 @@
     color: var(--main-secondary);
 }
 
+.uk-navbar-nav a {
+    color: #999;
+}
+
 a i {
     color: var(--main-color)
 }

@@ -105,6 +105,17 @@ class FormationController extends AbstractController
      */
     public function addStagiaire(Session $session, Request $request, ObjectManager $manager) : Response
     {
+        if (($session->getNbPlaces() - count($session->getStagiaires())) == 0)
+        {
+            $this->addFlash(
+                'notice',
+                'Il n\'y a plus de place dans cette formation !'
+            );
+            return $this->redirectToRoute('show_session', [
+                'id' => $session->getId()
+            ]);
+        }
+        
         $form = $this->createForm(StagiaireSessionType::class);
         $form->handleRequest($request);
         

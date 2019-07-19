@@ -4,6 +4,14 @@
 
 
 {% block body %}
+
+{% for message in app.flashes('notice') %}
+    <div class="flash-notice">
+        {{ message }}
+    </div>
+{% endfor %}
+
+
 <main>
     <div id="wrapper-main">
         <h2>Détails de {{ formation.intitule }}</h2>
