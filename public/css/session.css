@@ -31,6 +31,10 @@
     color: #999;
 }
 
+.uk-navbar-nav .uk-button {
+    min-height: 0;
+}
+
 a i {
     color: var(--main-color)
 }
