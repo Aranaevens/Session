@@ -72,8 +72,8 @@ class ModuleController extends AbstractController
     public function listModules(): Response
     {
         $modules = $this->getDoctrine()
-                         ->getRepository(Modul::class)
-                         ->findAll();
+                        ->getRepository(Modul::class)
+                        ->findAllOrder();
 
         return $this->render('module/modules_list.html.twig', [
             'modules' => $modules,
