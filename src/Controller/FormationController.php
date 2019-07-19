@@ -145,6 +145,18 @@ class FormationController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/{id_stagiaire}/remove", name="session_remove_stagiaire")
+     * @Entity("stagiaire", expr="repository.find(id_stagiaire)")
+     */
+    public function removeStagiaire(Session $session, Stagiaire $stagiaire, Request $request, ObjectManager $manager) : Response
+    {
+        $session->removeStagiaire($stagiaire);
+        $manager->flush();
+        
+        return $this->showSession($session);
+    }
+
+    /**
      * @Route("{id}/delete/", name="session_delete")
      */
     public function deleteSession(Session $session, ObjectManager $manager) : Response {

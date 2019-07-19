@@ -26,7 +26,10 @@ class ModuleType extends AbstractType
             ])
             ->add('categorie', EntityType::class,[
                 'class' => Categorie::class,
-                'choice_label' => 'intitule'
+                'choice_label' => 'intitule',
+                'attr' => [
+                    'class' => 'uk-select'
+                    ],
             ])
             ->add('valider', SubmitType::class,[
                 'attr'=>[
