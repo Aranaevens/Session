@@ -148,12 +148,6 @@ class FormationController extends AbstractController
 
         return $this->redirectToRoute('formations_list');
     }
-
-    
-    
-    
-
-
      /**
      * @Route("/sessions/add", name="session_add")
      */
