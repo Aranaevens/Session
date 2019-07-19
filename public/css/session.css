@@ -33,6 +33,7 @@
 
 .uk-navbar-nav .uk-button {
     min-height: 0;
+    color: var(--main-secondary);
 }
 
 a i {

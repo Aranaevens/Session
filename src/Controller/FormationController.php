@@ -42,6 +42,32 @@ class FormationController extends AbstractController
     {
         return $this->render('formation/calendar.html.twig');
     }
+
+     /**
+     * @Route("/add", name="session_add")
+     * @Route("/{id}/edit", name="session_edit")
+     */
+    public function addSession(Session $session = null, Request $request, ObjectManager $manager)
+    {
+        if(!$session)
+        {
+            $session = new Session();
+        }
+
+        $form = $this->createForm(SessionType::class, $session);           
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($session);
+            $manager->flush();
+
+            return $this->redirectToRoute('formations_list');
+        }
+
+        return $this->render('formation/add_edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
     
     /**
      * @Route("/{id}", name="show_session", methods="GET")
@@ -171,31 +197,5 @@ class FormationController extends AbstractController
         $manager->flush();
 
         return $this->redirectToRoute('formations_list');
-    }
-
-     /**
-     * @Route("/add", name="session_add")
-     * @Route("/{id}/edit", name="session_edit")
-     */
-    public function addSession(Session $session = null, Request $request, ObjectManager $manager)
-    {
-        if(!$session)
-        {
-            $session = new Session();
-        }
-
-        $form = $this->createForm(SessionType::class, $session);           
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $manager->persist($session);
-            $manager->flush();
-
-            return $this->redirectToRoute('formations_list');
-        }
-
-        return $this->render('formation/add_edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
     }
 }

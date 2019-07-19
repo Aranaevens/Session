@@ -24,7 +24,7 @@ class CategorieController extends AbstractController
      */
     public function addCategorie(Categorie $categorie = null, Request $request, ObjectManager $manager): Response
     {
-        if ($categorie)
+        if (!$categorie)
         {
             $categorie = new Categorie();
         }
