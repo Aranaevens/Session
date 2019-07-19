@@ -18,13 +18,14 @@
             {% for module in modules %}
                 <tr>
                     {% if cat != module.categorie.intitule %}
-                        <tr><td colspan="3" class="session-detail-cate">{{ module.categorie.intitule }}</td></tr>
+                        <tr><td colspan="3" class="session-detail-cate">{{ module.categorie.intitule }}</td>
                         {% if is_granted('ROLE_USER') %}
                         <td class="uk-width-1-6 session-detail-cate">
                             <a href="{{ path('categorie_edit', {'id':module.categorie.id}) }}"><i class="fas fa-edit"></i></a>
                             <a href="{{ path('categorie_delete', {'id':module.categorie.id}) }}"><i class="fas fa-times"></i></a>
                         </td>
                     {% endif %}
+                </tr>
                         {% set cat = module.categorie.intitule %}
                     {% endif %}
                     <td>{{ module.intitule }}</td>
