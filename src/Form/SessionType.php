@@ -33,7 +33,7 @@ class SessionType extends AbstractType
             ])
             ->add('dateDebut',DateType::class,[
                 'required' => true,
-                'widget' => 'simple_text',
+                'widget' => 'single_text',
                 'label' => 'Date de debut',
                 'attr'=>[
                     'class'=>'uk-input'
@@ -41,7 +41,7 @@ class SessionType extends AbstractType
             ])
             ->add('dateFin',DateType::class,[
                 'required' => true,
-                'widget' => 'simple_text',
+                'widget' => 'single_text',
                 'label' => 'Date de fin',
                 'attr'=>[
                     'class'=>'uk-input'

@@ -36,7 +36,9 @@ class CategorieController extends AbstractController
             $manager->persist($categorie);
             $manager->flush();
 
-            return $this->redirectToRoute('modules_list');
+            return $this->redirectToRoute('categorie_add_module', [
+                'id' => $categorie->getId(),
+            ]);
         }
         return $this->render('categorie/add_edit.html.twig',[
             'form'=>$form->createView(),

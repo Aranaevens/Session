@@ -86,7 +86,7 @@ dt {
     color: var(--main-color);
 }
 
-dl {
+dd {
     display: inline;
 }
 

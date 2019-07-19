@@ -28,7 +28,7 @@
                         {% set cat = module.categorie.intitule %}
                     {% endif %}
                     <td>{{ module.intitule }}</td>
-                    <td>{{ render(controller('App\\Controller\\FormationController::showModule', {'id': module.id})) }}</td>
+                    <td>{{ render(controller('App\\Controller\\ModuleController::showModule', {'id': module.id})) }}</td>
                     {% if is_granted('ROLE_USER') %}
                         <td class="uk-width-1-6">
                             <a href="{{ path('module_edit', {'id':module.id}) }}"><i class="fas fa-edit"></i></a>

@@ -16,13 +16,13 @@
             {% endif %}
         </div>
         <h3>{{ formateur.prenom }} {{ formateur.nom }}</h3>
-        <dd>
-            <dt>Sexe :</dt> <dl>{{ formateur.genre }}</dl><br />
-            <dt>Date de naissance :</dt> <dl>{{ formateur.genre }} ({{ formateur.age }} ans)</dl><br />
-            <dt>Ville :</dt> <dl>{{ formateur.ville }}</dl><br />
-            <dt>Courriel :</dt> <dl>{{ formateur.email }}</dl><br />
-            <dt>Téléphone :</dt> <dl>{{ formateur.telephone }}</dl><br />
-        </dd>
+        <dl>
+            <dt>Sexe :</dt> <dd>{{ formateur.genre }}</dd><br />
+            <dt>Date de naissance :</dt> <dd>{{ formateur.genre }} ({{ formateur.age }} ans)</dd><br />
+            <dt>Ville :</dt> <dd>{{ formateur.ville }}</dd><br />
+            <dt>Courriel :</dt> <dd>{{ formateur.email }}</dd><br />
+            <dt>Téléphone :</dt> <dd>{{ formateur.telephone }}</dd><br />
+        </dl>
         <h4>Sessions prévues</h4>
         <ul>
             {% for formation in sessions %}

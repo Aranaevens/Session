@@ -16,13 +16,13 @@
                 {% endif %}
             </div>
         <h3>{{ stagiaire.prenom }} {{ stagiaire.nom }}</h3>
-        <dd>
-            <dt>Sexe :</dt> <dl>{{ stagiaire.genre }}</dl><br />
-            <dt>Date de naissance :</dt> <dl>{{ stagiaire.genre }} ({{ stagiaire.age }} ans)</dl><br />
-            <dt>Ville :</dt> <dl>{{ stagiaire.ville }}</dl><br />
-            <dt>Courriel :</dt> <dl>{{ stagiaire.email }}</dl><br />
-            <dt>Téléphone :</dt> <dl>{{ stagiaire.telephone }}</dl><br />
-        </dd>
+        <dl>
+            <dt>Sexe :</dt> <dd>{{ stagiaire.genre }}</dd><br>
+            <dt>Date de naissance :</dt> <dd>{{ stagiaire.genre }} ({{ stagiaire.age }} ans)</dd><br>
+            <dt>Ville :</dt> <dd>{{ stagiaire.ville }}</dd><br>
+            <dt>Courriel :</dt> <dd>{{ stagiaire.email }}</dd><br>
+            <dt>Téléphone :</dt> <dd>{{ stagiaire.telephone }}</dd><br>
+        </dl>
         <h4>Sessions prévues</h4>
         <ul>
             {% for formation in sessions %}
