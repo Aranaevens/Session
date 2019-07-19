@@ -23,45 +23,45 @@
                         <div class="uk-navbar-center">
                             <ul class="uk-navbar-nav">
                                 <li>
-                                <a href="#">Stagiaires</a>
-                                <div class="uk-navbar-dropdown">
-                                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <button class="uk-button uk-button-default" type="button">Stagiaires</button>
+                                <div uk-dropdown>
+                                    <ul class="uk-nav uk-dropdown-nav">
                                         <li><a href="{{ path('stagiaires_list') }}">Liste</a></li>
                                         <li><a href="{{ path('stagiaire_add') }}">Ajouter</a></li>
                                     </ul>
                                 </div>
                                 </li>
                                 <li>
-                                <a href="#">Formateurs</a>
-                                <div class="uk-navbar-dropdown">
-                                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <button class="uk-button uk-button-default" type="button">Formateurs</button>
+                                <div uk-dropdown>
+                                    <ul class="uk-nav uk-dropdown-nav">
                                         <li><a href="{{ path('formateurs_list') }}">Liste</a></li>
                                         <li><a href="{{ path('formateur_add') }}">Ajouter</a></li>
                                     </ul>
                                 </div>
                                 </li>
                                 <li>
-                                <a href="#">Formations</a>
-                                <div class="uk-navbar-dropdown">
-                                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <button class="uk-button uk-button-default" type="button">Formations</button>
+                                <div uk-dropdown>
+                                    <ul class="uk-nav uk-dropdown-nav">
                                         <li><a href="{{ path('formations_list') }}">Liste</a></li>
                                         <li><a href="{{ path('session_add') }}">Ajouter</a></li>
                                     </ul>
                                 </div>
                                 </li>
                                 <li>
-                                <a href="#">Modules</a>
-                                <div class="uk-navbar-dropdown">
-                                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <button class="uk-button uk-button-default" type="button">Modules</button>
+                                <div uk-dropdown>
+                                    <ul class="uk-nav uk-dropdown-nav">
                                         <li><a href="{{ path('modules_list') }}">Liste</a></li>
                                         <li><a href="{{ path('module_add') }}">Ajouter</a></li>
                                     </ul>
                                 </div>
                                 </li>
                                 <li>
-                                <a href="#">Categories</a>
-                                <div class="uk-navbar-dropdown">
-                                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    <button class="uk-button uk-button-default" type="button">Catégories</button>
+                                <div uk-dropdown>
+                                    <ul class="uk-nav uk-dropdown-nav">
                                         <li><a href="{{ path('modules_list') }}">Liste</a></li>
                                         <li><a href="{{ path('categorie_add') }}">Ajouter</a></li>
                                     </ul>
