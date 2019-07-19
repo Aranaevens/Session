@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer une catégorie {% endblock %}
+
+{% block body %}
+<main>
+    <div id="wrapper-main">
+        {{form_start(form)}}
+        {{ form_row(form.intitule) }}
+        <br />
+        {{ form_row(form.valider) }}
+        {{ form_end(form) }}
+    </div>
+</main>
+
+{% endblock %}

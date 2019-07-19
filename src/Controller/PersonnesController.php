@@ -229,15 +229,11 @@ class PersonnesController extends AbstractController
                         'choices' => ['Homme' => 'M', 'Femme' => 'F'],
                         'expanded' => true,
                         'multiple' => false,
-                        // 'empty_data' => 'Homme',
                     ])
                     ->add('datenaissance',DateType::class, [
                         'required' => true,
                         'widget' => 'single_text',
-                        // 'years' => range(date('Y'),date('Y')-80),
                         'label' => 'Date de naissance',
-                        // 'format' => 'dd-MM-yyyy',
-
                     ])
                     ->add('ville',TextType::class, [
                         'required' => true,

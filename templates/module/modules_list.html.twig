@@ -19,20 +19,28 @@
                 <tr>
                     {% if cat != module.categorie.intitule %}
                         <tr><td colspan="3" class="session-detail-cate">{{ module.categorie.intitule }}</td></tr>
+                        {% if is_granted('ROLE_USER') %}
+                        <td class="uk-width-1-6 session-detail-cate">
+                            <a href="{{ path('categorie_edit', {'id':module.categorie.id}) }}"><i class="fas fa-edit"></i></a>
+                            <a href="{{ path('categorie_delete', {'id':module.categorie.id}) }}"><i class="fas fa-times"></i></a>
+                        </td>
+                    {% endif %}
                         {% set cat = module.categorie.intitule %}
                     {% endif %}
                     <td>{{ module.intitule }}</td>
                     <td>{{ render(controller('App\\Controller\\FormationController::showModule', {'id': module.id})) }}</td>
                     {% if is_granted('ROLE_USER') %}
-                        <td class="uk-width-1-6"><a href=""><i class="fas fa-edit"></i></a>
-                        <a href="{{ path('module_delete', {'id':module.id}) }}"><i class="fas fa-times"></i></a></td>
+                        <td class="uk-width-1-6">
+                            <a href="{{ path('module_edit', {'id':module.id}) }}"><i class="fas fa-edit"></i></a>
+                            <a href="{{ path('module_delete', {'id':module.id}) }}"><i class="fas fa-times"></i></a>
+                        </td>
                     {% endif %}
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    <!-- TODO -->
-    <!-- <a class="uk-button uk-button-default uk-button-large" href="{{ path('formateur_add') }}">Nouveau</a> -->
+    <a class="uk-button uk-button-default uk-button-large" href="{{ path('categorie_add') }}">Ajouter une catégorie</a>
+    <a class="uk-button uk-button-default uk-button-large" href="{{ path('module_add') }}">Ajouter un module</a>
     
 </div>
 </main>

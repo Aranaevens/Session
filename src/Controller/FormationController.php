@@ -5,18 +5,21 @@ namespace App\Controller;
 use App\Entity\Modul;
 use App\Entity\Session;
 use App\Entity\Composer;
+use App\Form\ModuleType;
 use App\Entity\Categorie;
 use App\Entity\Formateur;
+
 use App\Entity\Stagiaire;
 
 use App\Form\SessionType;
+use App\Form\ModuleSessionType;
 
+use App\Form\StagiaireSessionType;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -32,34 +35,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class FormationController extends AbstractController
 {
-    /**
-     * @Route("/modules", name="modules_list")
-     */
-    public function listModules(): Response
-    {
-        $modules = $this->getDoctrine()
-                         ->getRepository(Modul::class)
-                         ->findAll();
-
-        return $this->render('formation/modules_list.html.twig', [
-            'modules' => $modules,
-        ]);
-    }
-
-    /**
-     * @Route("/modules/{id}", name="module_show")
-     */
-    public function showModule(Modul $module): Response
-    {
-        $durees = $this->getDoctrine()
-                         ->getRepository(Composer::class)
-                         ->findByModule($module->getId());
-
-        return $this->render('formation/modules_show.html.twig', [
-            'durees' => $durees,
-        ]);
-    }
-
     /**
      * @Route("/{id}", name="show_session", methods="GET")
      */
@@ -93,7 +68,68 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/formations/{id}", name="session_delete")
+     * @Route("/{id}/addModule", name="session_add_module")
+     */
+    public function addModule(Session $session, Request $request, ObjectManager $manager) : Response
+    {
+        $form = $this->createForm(ModuleSessionType::class);
+        $flag = true;
+        $form->handleRequest($request);
+        
+        
+        if ($form->isSubmitted() && $form->isValid() && $flag)
+        {
+            $duree = new Composer();
+            $duree->setSession($session)
+                    ->setModule($form->get('module')->getData())
+                    ->setNbJours($form->get('nbjours')->getData());
+            $manager->persist($duree);
+            $manager->flush();
+
+            $flag = false;
+
+            $nextAction = $form->get('back')->isClicked() ? 'show_session' : 'session_addModule';
+            return $this->redirectToRoute($nextAction, [
+                'id' => $session->getId()
+            ]);
+        }
+
+        return $this->render('formation/add_module.html.twig', [
+            'session' => $session,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/addStagiaire", name="session_add_stagiaire")
+     */
+    public function addStagiaire(Session $session, Request $request, ObjectManager $manager) : Response
+    {
+        $form = $this->createForm(StagiaireSessionType::class);
+        $form->handleRequest($request);
+        
+        
+        if ($form->isSubmitted() && $form->isValid() && $flag)
+        {
+            foreach ($form->get('stagiaire')->getData() as $stagiaire)
+            {
+                $session->addStagiaire($stagiaire);
+            }
+            $manager->flush();
+
+            return $this->redirectToRoute('show_session', [
+                'id' => $session->getId()
+            ]);
+        }
+
+        return $this->render('formation/add_stagiaire.html.twig', [
+            'session' => $session,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("{id}/delete/", name="session_delete")
      */
     public function deleteSession(Session $session, ObjectManager $manager) : Response {
         $manager->remove($session);
@@ -102,22 +138,17 @@ class FormationController extends AbstractController
         return $this->redirectToRoute('formations_list');
     }
 
-    /**
-     * @Route("/modules/{id}", name="module_delete")
-     */
-    public function deleteModule(Modul $module, ObjectManager $manager) : Response {
-        $manager->remove($module);
-        $manager->flush();
+    
+    
+    
 
-        return $this->redirectToRoute('modules_list');
-    }
 
      /**
      * @Route("/sessions/add", name="session_add")
      */
     public function addSession(Request $request, ObjectManager $manager)
     {
-            $session = new Session();
+        $session = new Session();
         
         $form = $this->createForm(SessionType::class, $session);           
         $form->handleRequest($request);
@@ -133,7 +164,7 @@ class FormationController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
+
     /**
      * @Route("/sessions/edit/{id}", name="session_edit")
      */
@@ -154,5 +185,26 @@ class FormationController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/modules/edit/{id}", name="module_edit")
+     */
+    public function editModule(Modul $module, Request $request, ObjectManager $manager)
+    {
+        
+        $form = $this->createForm(ModuleType::class, $module);           
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($module);
+            $manager->flush();
+
+            return $this->redirectToRoute('modules_list');
+        }
+
+        return $this->render('formation/edit_module.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
 
 }

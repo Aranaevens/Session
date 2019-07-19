@@ -26,27 +26,23 @@ class SessionType extends AbstractType
             ])
             ->add('nbPlaces',NumberType::class,[
                 'required' => true,
-                'label'=> 'Places disponibles',
+                'label'=> 'Nombre de places',
                 'attr'=>[
                 'class'=>'uk-input'
                 ],
             ])
             ->add('dateDebut',DateType::class,[
                 'required' => true,
-                'widget' => 'choice',
-                'years' => range(date('Y'),date('Y')-80),
+                'widget' => 'simple_text',
                 'label' => 'Date de debut',
-                'format' => 'ddMMyyyy',
                 'attr'=>[
                     'class'=>'uk-input'
                 ],
             ])
             ->add('dateFin',DateType::class,[
                 'required' => true,
-                'widget' => 'choice',
-                'years' => range(date('Y'),date('Y')-80),
-                'label' => 'Date de debut',
-                'format' => 'ddMMyyyy',
+                'widget' => 'simple_text',
+                'label' => 'Date de fin',
                 'attr'=>[
                     'class'=>'uk-input'
                 ],
