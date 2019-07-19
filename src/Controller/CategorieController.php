@@ -53,7 +53,7 @@ class CategorieController extends AbstractController
         $form = $this->createForm(ModuleCategorieType::class);
         $form->handleRequest($request); 
         
-        if ($form->isSubmitted() && $form->isValid() && $flag)
+        if ($form->isSubmitted() && $form->isValid())
         {
             foreach ($form->get('module')->getData() as $module)
             {
@@ -78,7 +78,7 @@ class CategorieController extends AbstractController
         $form = $this->createForm(FormateurCategorieType::class);
         $form->handleRequest($request); 
         
-        if ($form->isSubmitted() && $form->isValid() && $flag)
+        if ($form->isSubmitted() && $form->isValid())
         {
             foreach ($form->get('formateur')->getData() as $formateur)
             {
