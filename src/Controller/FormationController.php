@@ -36,6 +36,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FormationController extends AbstractController
 {
     /**
+     * @Route("/calendar", name="session_calendar", methods={"GET"})
+     */
+    public function calendar(): Response
+    {
+        return $this->render('formation/calendar.html.twig');
+    }
+    
+    /**
      * @Route("/{id}", name="show_session", methods="GET")
      */
     public function showSession(Session $formation): Response{
@@ -189,13 +197,5 @@ class FormationController extends AbstractController
         return $this->render('formation/add_edit.html.twig', [
             'form' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/calendar", name="session_calendar", methods={"GET"})
-     */
-    public function calendar(): Response
-    {
-        return $this->render('formation/calendar.html.twig');
     }
 }

@@ -4,7 +4,7 @@
     --main-tertiary: #F4CD9A;
 }
 
-.uk-link, a, a:link, a:visited {
+.uk-link, a.uk-button, a:link, a:visited {
     color: var(--main-secondary);
 }
 

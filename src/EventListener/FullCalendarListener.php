@@ -41,7 +41,7 @@ class FullCalendarListener
         foreach ($sessions as $session) {
             // this create the events with your own entity (here session entity) to populate calendar
             $sessionEvent = new Event(
-                $session->getTitle(),
+                $session->getIntitule(),
                 $session->getDateDebut(),
                 $session->getDateFin() // If the end date is null or not defined, a all day event is created.
             );
