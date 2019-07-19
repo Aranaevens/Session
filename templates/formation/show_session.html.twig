@@ -32,7 +32,9 @@
                 {% set cat = '' %}
                 {% for duree in durees %}
                     {% if cat != duree.module.categorie.intitule %}
-                        <tr><td colspan="2" class="session-detail-cate">{{ duree.module.categorie.intitule }}</td></tr>
+                        <tr>
+                            <td colspan="2" class="session-detail-cate">{{ duree.module.categorie.intitule }}</td>
+                        </tr>
                         {% set cat = duree.module.categorie.intitule %}
                     {% endif %}
                     <tr>

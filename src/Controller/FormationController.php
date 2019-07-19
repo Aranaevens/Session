@@ -119,12 +119,13 @@ class FormationController extends AbstractController
         $form = $this->createForm(StagiaireSessionType::class);
         $flag = true;
         $form->handleRequest($request);
-        
+        $flag = true;
         
         if ($form->isSubmitted() && $form->isValid() && $flag)
         {
             $session->addStagiaire($form->get('stagiaire')->getData());
             $manager->flush();
+            $flag = false;
 
             $flag = false;
 
@@ -165,7 +166,6 @@ class FormationController extends AbstractController
 
         return $this->redirectToRoute('formations_list');
     }
-
      /**
      * @Route("/sessions/add", name="session_add")
      */
