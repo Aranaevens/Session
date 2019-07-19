@@ -191,4 +191,11 @@ class FormationController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/calendar", name="session_calendar", methods={"GET"})
+     */
+    public function calendar(): Response
+    {
+        return $this->render('formation/calendar.html.twig');
+    }
 }
