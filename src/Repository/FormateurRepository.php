@@ -43,6 +43,16 @@ class FormateurRepository extends ServiceEntityRepository
         return $query->getSingleResult();
     }
 
+    public function findByCategorie($categorie_id)
+    {
+        return $this->createQueryBuilder('f')
+                    ->innerJoin('f.categories', 'c')
+                    ->where('c.id = :id')
+                    ->setParameter('id', $categorie_id)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Formateur[] Returns an array of Formateur objects
     //  */

@@ -32,6 +32,8 @@ class CalendarListener
         $sessions = $this->sessionRepository
             ->createQueryBuilder('session')
             ->where('session.dateDebut BETWEEN :start and :end')
+            ->orWhere('session.dateFin BETWEEN :start and :end')
+            ->orWhere(':end BETWEEN session.dateDebut and session.dateFin')
             ->setParameter('start', $start->format('Y-m-d H:i:s'))
             ->setParameter('end', $end->format('Y-m-d H:i:s'))
             ->getQuery()
