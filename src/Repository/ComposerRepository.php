@@ -19,10 +19,14 @@ class ComposerRepository extends ServiceEntityRepository
         parent::__construct($registry, Composer::class);
     }
 
-    public function moduleBySession($id){
-        return $this->createQueryBuilder('modulcom')
-                    ->innerJoin('modulcom.session', 'comsession')
-                    ->where('comsession.id = :id')
+    public function moduleBySession($id)
+    {
+        return $this->createQueryBuilder('co')
+                    ->innerJoin('co.session', 's')
+                    ->innerJoin('co.module', 'm')
+                    ->innerJoin('m.categorie', 'c')
+                    ->orderBy('c.intitule')
+                    ->where('s.id = :id')
                     ->setParameter('id', $id)
                     ->getQuery()
                     ->getResult();
