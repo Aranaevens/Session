@@ -133,6 +133,19 @@ class FormationController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    
+
+    /**
+     * @Route("/{id}/{id_composer}/remove", name="session_remove_module")
+     * @Entity("composer", expr="repository.find(id_composer)")
+     */
+    public function removeModule(Composer $composer, Session $session, Request $request, ObjectManager $manager) : Response
+    {
+        $session->removeComposer($composer);
+        $manager->flush();
+        
+        return $this->showSession($session);
+    }
 
     /**
      * @Route("/{id}/addStagiaire", name="session_add_stagiaire")
