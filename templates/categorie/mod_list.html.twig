@@ -1,0 +1,7 @@
+{% for module in modules %}
+{% if not loop.last %}
+{{ module.module.intitule ~ " (" ~ module.nbJours ~ ")" ~ ", " }}
+{% else %}
+{{ module.module.intitule ~ " (" ~ module.nbJours ~ ")" }}
+{% endif %}
+{% endfor %}

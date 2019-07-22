@@ -3,13 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Modul;
+use App\Entity\Composer;
 use App\Entity\Categorie;
+use App\Entity\Formateur;
 use App\Form\CategoryType;
 use App\Form\ModuleCategorieType;
 use App\Form\FormateurCategorieType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -95,15 +97,56 @@ class CategorieController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/{id}/delete", name="categorie_delete")
      */
-    public function deleteCategorie(Modul $categorie, ObjectManager $manager) : Response
+    public function deleteCategorie(Categorie $categorie, ObjectManager $manager) : Response
     {
         $manager->remove($categorie);
         $manager->flush();
 
-        return $this->redirectToRoute('modules_list');
+        return $this->redirectToRoute('categories_list');
+    }
+
+    /**
+     * @Route("/{id}/modules", name="modules_list_category")
+     */
+    public function listModules(Categorie $categorie, ObjectManager $manager) : Response
+    {
+        $modules = $this->getDoctrine()
+                        ->getRepository(Composer::class)
+                        ->findByCategorie($categorie->getId());
+
+        return $this->render('categorie/mod_list.html.twig', [
+            'modules' => $modules
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/formateurs", name="formateurs_list_category")
+     */
+    public function listFormateurs(Categorie $categorie, ObjectManager $manager) : Response
+    {
+        $formateurs = $this->getDoctrine()
+                        ->getRepository('App\Entity\Formateur')
+                        ->findByCategorie($categorie->getId());
+
+        return $this->render('categorie/form_list.html.twig', [
+            'formateurs' => $formateurs
+        ]);
+    }
+
+    /**
+     * @Route("/", name="categories_list")
+     */
+    public function listCategorie() : Response
+    {
+        $categories = $this->getDoctrine()
+                        ->getRepository(Categorie::class)
+                        ->findAll();
+
+        return $this->render('categorie/categories_list.html.twig', [
+            'categories' => $categories
+        ]);
     }
 }

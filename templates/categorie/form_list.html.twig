@@ -1,0 +1,7 @@
+{% for formateur in formateurs %}
+{% if not loop.last %}
+{{ formateur.prenom ~ " " ~ formateur.nom ~ ", " }}
+{% else %}
+{{ formateur.prenom ~ " " ~ formateur.nom }}
+{% endif %}
+{% endfor %}

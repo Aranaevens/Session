@@ -45,6 +45,17 @@ class ComposerRepository extends ServiceEntityRepository
                     ->getResult();
     }
 
+    public function findByCategorie($categorie_id)
+    {
+        return $this->createQueryBuilder('co')
+                    ->innerJoin('co.module', 'm')
+                    ->innerJoin('m.categorie', 'c')
+                    ->where('c.id = :id')
+                    ->setParameter('id', $categorie_id)
+                    ->getQuery()
+                    ->getResult();
+    }
+
     // /**
     //  * @return Composer[] Returns an array of Composer objects
     //  */

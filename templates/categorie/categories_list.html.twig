@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des formateurs{% endblock %}
+
+{% block body %}
+<main>
+<div id="wrapper-main">
+    <table class="uk-table uk-table-striped uk-table-middle">
+        <thead>
+            <th class="uk-width-1-5">Intitulé</th>
+            <th>Formateurs enseignant ce module</th>
+            <th>Modules composants la formation</th>
+            {% if is_granted('ROLE_USER') %}
+                <th class="uk-width-1-6">Outils</th>
+            {% endif %}
+        </thead>
+        <tbody>
+            {% for categorie in categories %}
+                <tr>
+                    <td>{{ categorie.intitule }}</td>
+                    <td>{{ render(controller('App\\Controller\\CategorieController::listFormateurs', {'id': categorie.id})) }}</td>
+                    <td>{{ render(controller('App\\Controller\\CategorieController::listModules', {'id': categorie.id})) }}</td>
+                    {% if is_granted('ROLE_USER') %}
+                        <td class="uk-width-1-6">
+                            <a href="{{ path('categorie_edit', {'id':categorie.id}) }}"><i class="fas fa-edit"></i></a>
+                            <a href="{{ path('categorie_delete', {'id':module.id}) }}"><i class="fas fa-times"></i></a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="uk-button uk-button-default uk-button-large" href="{{ path('categorie_add') }}">Ajouter une catégorie</a>
+    
+</div>
+</main>
+
+{% endblock %}
