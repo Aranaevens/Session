@@ -4,7 +4,7 @@
 
 {% block body %}
 <main>
-    <div id="wrapper-main">
+    <div id="wrapper-main-home">
         <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
             <div>
                 <a class="a-ingrid" href="{{ path('stagiaires_list') }}"><div class="uk-card uk-card-default uk-card-body">Stagiaires</div></a>
@@ -20,6 +20,11 @@
                 <div>
                     <a class="a-ingrid" href="{{ path('modules_list') }}"><div class="uk-card uk-card-default uk-card-body">Modules</div></a>
                 </div>
+        </div>
+        <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
+            <div>
+                <a class="a-ingrid" href="{{ path('categories_list') }}"><div class="uk-card uk-card-default uk-card-body">Categories</div></a>
+            </div>
         </div>
     </div>
 </main>
