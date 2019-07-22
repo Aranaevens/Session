@@ -40,9 +40,19 @@ a i {
     color: var(--main-color)
 }
 
+body {
+    height: 100vh;
+}
+
 #wrapper-main {
     width: 80%;
     margin: 0 auto 0 auto;
+}
+
+#wrapper-main-home {
+    width: 80%;
+    margin: 10vh auto 10vh auto;
+    vertical-align: middle;
 }
 
 /* ------------------------Navbar CSS------------------------ */
