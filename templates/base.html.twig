@@ -13,75 +13,74 @@
         {% endblock %}
     </head>
     <body>
-            <header>
-                <div id="wrapper-header">   
-                    <nav class="uk-navbar-container uk-navbar">
-                        <div id="hero" class="uk-navbar-left">
-                            <a href="{{ path('home') }}"><img src="{{ asset('/ressources/images/logo-elan.png') }}" alt="Formation Banner" /></a>
-                        </div>
-                        
-                        <div class="uk-navbar-center">
-                            <ul class="uk-navbar-nav">
-                                <li>
-                                    <a class="uk-button uk-button-default" href="{{ path('stagiaires_list') }}">Stagiaires</a>
-                                <div uk-dropdown>
-                                    <ul class="uk-nav uk-dropdown-nav">
-                                        <li><a href="{{ path('stagiaire_add') }}">Ajouter</a></li>
-                                    </ul>
-                                </div>
-                                </li>
-                                <li>
-                                    <a class="uk-button uk-button-default" href="{{ path('formateurs_list') }}">Formateurs</a>
-                                <div uk-dropdown>
-                                    <ul class="uk-nav uk-dropdown-nav">
-                                        <li><a href="{{ path('formateur_add') }}">Ajouter</a></li>
-                                    </ul>
-                                </div>
-                                </li>
-                                <li>
-                                    <a class="uk-button uk-button-default" href="{{ path('formations_list') }}">Formations</a>
-                                <div uk-dropdown>
-                                    <ul class="uk-nav uk-dropdown-nav">
-                                        <li><a href="{{ path('session_add') }}">Ajouter</a></li>
-                                        <li><a href="{{ path('session_calendar') }}">Planning</a></li>
-                                    </ul>
-                                </div>
-                                </li>
-                                <li>
-                                    <a class="uk-button uk-button-default" href="{{ path('modules_list') }}">Modules</a>
-                                <div uk-dropdown>
-                                    <ul class="uk-nav uk-dropdown-nav">
-                                        <li><a href="{{ path('module_add') }}">Ajouter</a></li>
-                                    </ul>
-                                </div>
-                                </li>
-                                <li>
-                                    <a class="uk-button uk-button-default" href="{{ path('modules_list') }}">Catégories</a>
-                                <div uk-dropdown>
-                                    <ul class="uk-nav uk-dropdown-nav">
-                                        <li><a href="{{ path('categorie_add') }}">Ajouter</a></li>
-                                    </ul>
-                                </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="uk-navbar-right">
-                            <ul class="uk-navbar-nav">
-                                {% if is_granted('ROLE_USER') %}
-                                    <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
-                                {% else %}
-                                    <li><a href="{{ path('app_login') }}">Connexion</a></li>
-                                {% endif %}
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-            </header>
+        <header>
+            <div id="wrapper-header">   
+                <nav class="uk-navbar-container uk-navbar">
+                    <div id="hero" class="uk-navbar-left">
+                        <a href="{{ path('home') }}"><img src="{{ asset('/ressources/images/logo-elan.png') }}" alt="Formation Banner" /></a>
+                    </div>
+                    
+                    <div class="uk-navbar-center">
+                        <ul class="uk-navbar-nav">
+                            <li>
+                                <a class="uk-button uk-button-default" href="{{ path('stagiaires_list') }}">Stagiaires</a>
+                            <div uk-dropdown>
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li><a href="{{ path('stagiaire_add') }}">Ajouter</a></li>
+                                </ul>
+                            </div>
+                            </li>
+                            <li>
+                                <a class="uk-button uk-button-default" href="{{ path('formateurs_list') }}">Formateurs</a>
+                            <div uk-dropdown>
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li><a href="{{ path('formateur_add') }}">Ajouter</a></li>
+                                </ul>
+                            </div>
+                            </li>
+                            <li>
+                                <a class="uk-button uk-button-default" href="{{ path('formations_list') }}">Formations</a>
+                            <div uk-dropdown>
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li><a href="{{ path('session_add') }}">Ajouter</a></li>
+                                    <li><a href="{{ path('session_calendar') }}">Planning</a></li>
+                                </ul>
+                            </div>
+                            </li>
+                            <li>
+                                <a class="uk-button uk-button-default" href="{{ path('modules_list') }}">Modules</a>
+                            <div uk-dropdown>
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li><a href="{{ path('module_add') }}">Ajouter</a></li>
+                                </ul>
+                            </div>
+                            </li>
+                            <li>
+                                <a class="uk-button uk-button-default" href="{{ path('modules_list') }}">Catégories</a>
+                            <div uk-dropdown>
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li><a href="{{ path('categorie_add') }}">Ajouter</a></li>
+                                </ul>
+                            </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="uk-navbar-right">
+                        <ul class="uk-navbar-nav">
+                            {% if is_granted('ROLE_USER') %}
+                                <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                            {% else %}
+                                <li><a href="{{ path('app_login') }}">Connexion</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
         {% block body %}
 
 
         {% endblock %}
-
         
         <!-- FontAwesome JS -->
         <script src="https://kit.fontawesome.com/6277cc7eb0.js"></script>
