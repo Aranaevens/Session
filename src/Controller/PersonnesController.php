@@ -32,6 +32,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PersonnesController extends AbstractController
 {
     /**
+     * @Route("/{id}/calendar", name="formateur_calendar", methods={"GET"})
+     */
+    public function calendar(Formateur $formateur): Response
+    {
+        return $this->render('personnes/calendar.html.twig', [
+            'formateur' => $formateur,
+        ]);
+    }
+    
+    /**
      * @Route("/{id}/formateurs/", name="formateurs_session", methods="GET")
      */
     public function showFormateursBySession(Session $session): Response

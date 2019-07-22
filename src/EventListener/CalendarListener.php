@@ -26,10 +26,29 @@ class CalendarListener
         $start = $calendar->getStart();
         $end = $calendar->getEnd();
         $filters = $calendar->getFilters();
-
+        dump($filters['formateur']);
         // Modify the query to fit to your entity and needs
         // Change session.beginAt by your start date property
-        $sessions = $this->sessionRepository
+        if (array_key_exists('formateur', $filters))
+        {
+            $sessions = $this->sessionRepository
+            ->createQueryBuilder('session')
+            ->innerJoin('session.composer', 'co')
+            ->innerJoin('co.module', 'm')
+            ->innerJoin('m.categorie', 'c')
+            ->innerJoin('c.formateurs', 'f')
+            ->where('session.dateDebut BETWEEN :start and :end OR :end BETWEEN session.dateDebut and session.dateFin')
+            ->andWhere('f.id = :id')
+            ->setParameter('start', $start->format('Y-m-d H:i:s'))
+            ->setParameter('end', $end->format('Y-m-d H:i:s'))
+            ->setParameter('id', $filters['formateur'])
+            ->getQuery()
+            ->getResult()
+        ;
+        }
+        else
+        {
+            $sessions = $this->sessionRepository
             ->createQueryBuilder('session')
             ->where('session.dateDebut BETWEEN :start and :end')
             ->orWhere('session.dateFin BETWEEN :start and :end')
@@ -39,6 +58,7 @@ class CalendarListener
             ->getQuery()
             ->getResult()
         ;
+        }
 
         foreach ($sessions as $session) {
             // this create the events with your data (here session data) to fill calendar
@@ -56,8 +76,8 @@ class CalendarListener
              */
 
             $sessionEvent->setOptions([
-                'backgroundColor' => 'blue',
-                'borderColor' => 'blue',
+                'backgroundColor' => 'red',
+                'borderColor' => 'red',
             ]);
             $sessionEvent->addOption(
                 'url',

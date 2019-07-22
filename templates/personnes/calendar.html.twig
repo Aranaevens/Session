@@ -28,6 +28,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
     var calendarEl = document.getElementById('calendar-holder');
+    var forma = {{ formateur.id }};
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         defaultView: 'dayGridMonth',
@@ -37,7 +38,7 @@
                 url: "/fc-load-events",
                 method: "POST",
                 extraParams: {
-                    filters: JSON.stringify({})
+                    filters: JSON.stringify({ formateur:forma })
                 },
                 failure: () => {
                     // alert("There was an error while fetching FullCalendar!");
