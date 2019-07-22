@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un module {% endblock %}
+
+{% block body %}
+<main>
+<div id="wrapper-main">
+    {{ form_start(form) }}
+
+    {{ form_row(form.nbjours) }}
+    {{ form_row(form.modifier) }}
+    
+    {{ form_end(form) }}
+</div>
+</main>
+{% endblock %}

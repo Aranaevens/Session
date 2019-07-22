@@ -12,11 +12,12 @@ use App\Entity\Formateur;
 use App\Entity\Stagiaire;
 
 use App\Form\SessionType;
+use App\Form\ComposerType;
+
 use App\Form\ModuleSessionType;
-
 use App\Form\StagiaireSessionType;
-use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -133,7 +134,28 @@ class FormationController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
+    /**
+     * @Route("/{id}/{id_composer}/edit", name="session_edit_module")
+     */
+    public function editModule( Composer $duree, Request $request, ObjectManager $manager) : Response{
+
+        $form = $this->createForm(ComposerType::class,$duree);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+        
+            $manager->persist($duree);
+            $manager->flush();
+
+            return $this->redirectToRoute('show_session',['id'=>$duree->getSession()->getId()]);
+
+        }
+        return $this->render('formation/edit_module.html.twig', [
+            'session' => $duree,
+            'form' => $form->createView(),
+        ]);
+
+    }
 
     /**
      * @Route("/{id}/{id_composer}/remove", name="session_remove_module")
