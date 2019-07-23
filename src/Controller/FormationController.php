@@ -54,11 +54,21 @@ class FormationController extends AbstractController
         {
             $session = new Session();
         }
-
+        $request->getSession()->set('referer', $request->headers->get('referer'));
         $form = $this->createForm(SessionType::class, $session);           
         $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid())
         {
+            if ($form->get('dateDebut')->getData() < $form->get('dateDebut')->getData())
+            {
+                $this->addFlash(
+                    'notice',
+                    'La date de fin doit être après la date de début'
+                );
+                return $this->redirect($session->get('referer'));
+            }
+            
             $manager->persist($session);
             $manager->flush();
 
@@ -100,7 +110,7 @@ class FormationController extends AbstractController
         
         
         if ($form->isSubmitted() && $form->isValid() && $flag)
-        {
+        {      
             $duree = new Composer();
             $duree->setSession($session)
                     ->setModule($form->get('module')->getData())
@@ -144,7 +154,7 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/{id_composer}/remove", name="session_remove_module")
+     * @Route("/{id}/{id_composer}/remove_module", name="session_remove_module")
      * @Entity("composer", expr="repository.find(id_composer)")
      */
     public function removeModule(Composer $composer, Session $session, Request $request, ObjectManager $manager) : Response
@@ -156,7 +166,7 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/{id_stagiaire}/remove", name="session_remove_stagiaire")
+     * @Route("/{id}/{id_stagiaire}/remove_stagiaire", name="session_remove_stagiaire")
      * @Entity("stagiaire", expr="repository.find(id_stagiaire)")
      */
     public function removeStagiaire(Session $session, Stagiaire $stagiaire, Request $request, ObjectManager $manager) : Response
@@ -176,7 +186,7 @@ class FormationController extends AbstractController
         {
             $this->addFlash(
                 'notice',
-                'Il n\'y a plus de place dans cette formation !'
+                'Il n\'y a plus de place disponible dans cette formation !'
             );
             return $this->redirectToRoute('show_session', [
                 'id' => $session->getId()
@@ -198,10 +208,6 @@ class FormationController extends AbstractController
             return $this->redirectToRoute($nextAction, [
                 'id' => $session->getId()
             ]);
-
-            // return $this->redirectToRoute('show_session', [
-            //     'id' => $session->getId()
-            // ]);
         }
 
         return $this->render('formation/add_stagiaire.html.twig', [

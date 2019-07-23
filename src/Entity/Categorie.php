@@ -19,7 +19,7 @@ class Categorie
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=100)
      */
     private $intitule;
 

@@ -7,6 +7,7 @@ use App\Entity\Categorie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -23,6 +24,15 @@ class ModuleType extends AbstractType
                 'attr' => [
                 'class' => 'uk-input'
                 ],
+                'constraints' => [
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'L\intitulé doit fait au moins 3 caractères',
+                        'max' => 99,
+                        'maxMessage' => 'L\intitulé doit fait au plus 99 caractères'
+                    ])
+                ],
+                'trim' => true,
             ])
             ->add('categorie', EntityType::class,[
                 'class' => Categorie::class,

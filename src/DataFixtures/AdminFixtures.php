@@ -21,7 +21,8 @@ class AdminFixtures extends Fixture
         $adm = new User();
         $adm->setEmail('sudo@superadmin.elan.fr')
             ->setPassword($this->encoder->encodePassword(
-                $adm, 'admin'));
+                $adm, 'admin'))
+            ->setRoles(array('ROLE_ADMIN'));
         $manager->persist($adm);
 
         $manager->flush();

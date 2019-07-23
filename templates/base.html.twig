@@ -68,6 +68,9 @@
                         <div class="uk-navbar-right">
                             <ul class="uk-navbar-nav">
                                 {% if is_granted('ROLE_USER') %}
+                                    <li><a href="{{ path('users_list') }}">Gestion d'utilisateurs</a></li>
+                                {% endif %}
+                                {% if is_granted('ROLE_USER') %}
                                     <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
                                 {% else %}
                                     <li><a href="{{ path('app_login') }}">Connexion</a></li>

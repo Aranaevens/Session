@@ -9,6 +9,9 @@ use App\Entity\Categorie;
 use App\Entity\Formateur;
 use App\Entity\Stagiaire;
 
+use App\Form\FormateurType;
+
+use App\Form\StagiaireType;
 use Symfony\Component\HttpFoundation\Request;
 
 use Doctrine\Common\Persistence\ObjectManager;
@@ -16,7 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
-
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -88,64 +90,7 @@ class PersonnesController extends AbstractController
             $formateur = new Formateur();
         }
 
-        $form = $this->createFormBuilder($formateur)
-                    ->add('nom',TextType::class, [
-                        'required' => true,
-                        'label' => 'Nom',
-                        'attr' => [
-                            'class' => 'uk-input'
-                        ],
-                    ])
-                    ->add('prenom',TextType::class, [
-                        'required' => true,
-                        'label' => 'Prénom',
-                        'attr' => [
-                            'class' => 'uk-input'
-                        ],
-                    ])
-                    ->add('genre',ChoiceType::class, [
-                        'required' => true,
-                        'label' => 'Genre',
-                        'choices' => ['Homme' => 'M', 'Femme' => 'F'],
-                        'expanded' => true,
-                        'multiple' => false,
-                        
-                    ])
-                    ->add('datenaissance',DateType::class, [
-                        'required' => true,
-                        'widget' => 'single_text',
-                        'label' => 'Date de naissance',
-                        'attr' => [
-                            'class' => 'uk-input'
-                        ],
-                    ])
-                    ->add('ville',TextType::class, [
-                        'required' => true,
-                        'label' => 'Ville',
-                        'attr' => [
-                            'class' => 'uk-input'
-                        ],
-                    ])
-                    ->add('email', EmailType::class, [
-                        'required' => true,
-                        'label' => 'Adresse e-mail',
-                        'attr' => [
-                            'class' => 'uk-input'
-                        ],
-                        ])
-                    ->add('telephone', TelType::class, [
-                        'required' => true,
-                        'label' => 'Numéro de Téléphone',
-                        'attr' => [
-                            'class' => 'uk-input uk-form-small uk-form-width-medium'
-                        ],
-                        ])
-                    ->add('Valider', SubmitType::class, [
-                        'attr' => [
-                            'class' => 'uk-button'
-                        ]
-                    ])
-                    ->getForm();
+        $form = $this->createForm(FormateurType::class, $formateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
@@ -217,60 +162,7 @@ class PersonnesController extends AbstractController
             $stagiaire = new Stagiaire();
         }
 
-        $form = $this->createFormBuilder($stagiaire)
-                    ->add('nom',TextType::class, [
-                        'required' => true,
-                        'label' => 'Nom',
-                        'attr' => [
-                            'class' => 'uk-input'
-                        ],
-                    ])
-                    ->add('prenom',TextType::class, [
-                        'required' => true,
-                        'label' => 'Prénom',
-                        'attr' => [
-                            'class' => 'uk-input'
-                        ],
-                    ])
-                    ->add('genre',ChoiceType::class, [
-                        'required' => true,
-                        'label' => 'Genre',
-                        'choices' => ['Homme' => 'M', 'Femme' => 'F'],
-                        'expanded' => true,
-                        'multiple' => false,
-                    ])
-                    ->add('datenaissance',DateType::class, [
-                        'required' => true,
-                        'widget' => 'single_text',
-                        'label' => 'Date de naissance',
-                    ])
-                    ->add('ville',TextType::class, [
-                        'required' => true,
-                        'label' => 'Ville',
-                        'attr' => [
-                            'class' => 'uk-input'
-                        ],
-                    ])
-                    ->add('email', EmailType::class, [
-                        'required' => true,
-                        'label' => 'Adresse e-mail',
-                        'attr' => [
-                            'class' => 'uk-input'
-                        ],
-                        ])
-                    ->add('telephone', TelType::class, [
-                        'required' => true,
-                        'label' => 'Numéro de Téléphone',
-                        'attr' => [
-                            'class' => 'uk-input uk-form-small uk-form-width-medium'
-                        ],
-                        ])
-                    ->add('Valider', SubmitType::class, [
-                        'attr' => [
-                            'class' => 'uk-button'
-                        ]
-                    ])
-                    ->getForm();
+        $form = $this->createForm(StagiaireType::class, $stagiaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())

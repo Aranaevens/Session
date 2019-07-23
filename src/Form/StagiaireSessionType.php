@@ -25,9 +25,6 @@ class StagiaireSessionType extends AbstractType
                 'attr' => [
                     'class' => 'uk-select'
                 ],
-                // 'multiple' => true,
-                // 'expanded' => true,
-                // 'by_reference' => false,
             ])
             ->add('back', SubmitType::class, [
                 'label' => 'Ajouter et revenir',

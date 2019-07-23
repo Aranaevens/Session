@@ -8,11 +8,9 @@
 <div id="wrapper-main">
         {{ form_start(form) }}
         {{ form_row(form.email) }}
-        {% if is_granted('ROLE_ADMIN') %}
             {{ form_label(form.role) }} <br />
             {{ form_errors(form.role) }}
             {{ form_widget(form.role, {attr: {'class': 'uk-select' }}) }} <br />
-        {% endif %}
         {{ form_label(form.plainPassword.first) }} <br />
         {{ form_errors(form.plainPassword.first) }}
         {{ form_widget(form.plainPassword.first, {attr: {'class': 'uk-input' }}) }} <br />

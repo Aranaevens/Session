@@ -21,9 +21,10 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //    $this->redirectToRoute('target_path');
-        // }
+        if ($this->getUser())
+        {
+            $this->redirectToRoute('home');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -42,27 +43,45 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/user/delete/{id}", name="user_delete")
+     */
+    public function deleteUser(User $user, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        
+        $manager->remove($user);
+        $manager->flush();
+
+        return $this->redirectToRoute('users_list');
+    }
+
+    /**
+     * @Route("/user/edit/{id}", name="user_edit")
      * @Route("/user/add", name="user_add")
      */
-    public function addUser(User $user = null, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function editUser(User $user = null, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        if (!$user)
-        {
-            $user = new User();
-        }
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        $form = $this->createForm(UserType::class, $user)
-                        ->add('Valider', SubmitType::class, [
-                            'attr' => [
-                                'class' => 'uk-button'
-                            ]
-                        ]);
+        $form = $this->createForm(UserType::class, $user);
+            $form->add('role', ChoiceType::class, [
+                'required' => false,
+                'mapped' => false,
+                'label' => 'Ajouter un rôle',
+                'choices' => ['Utilisateur' => 'ROLE_USER', 'Administrateur' => 'ROLE_ADMIN']]);          
+        $form->add('Valider', SubmitType::class, [
+            'attr' => [
+                'class' => 'uk-button'
+            ]
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
             $user->setPassword($passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData()));
-
+            $user->setRoles(array($form->get('role')->getData()));
             $manager->persist($user);
             $manager->flush();
 
@@ -75,46 +94,18 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/user/edit/{id}", name="user_edit")
+     * @Route("/user/", name="users_list")
      */
-    public function editUser(User $user, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function listUser(): Response
     {
-        if ($user != $this->getUser())
-        {
-            $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        }
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
+        $users = $this->getDoctrine()
+                         ->getRepository(User::class)
+                         ->findAll();
 
-        $form = $this->createForm(UserType::class, $user);
-        if ($this->isGranted('ROLE_ADMIN'))
-        {
-            $form->add('role', ChoiceType::class, [
-                'required' => false,
-                'mapped' => false,
-                'label' => 'Ajouter un rôle',
-                'choices' => ['Utilisateur' => 'ROLE_USER', 'Administrateur' => 'ROLE_ADMIN']]);          
-        }
-        $form->add('Valider', SubmitType::class, [
-            'attr' => [
-                'class' => 'uk-button'
-            ]
-        ]);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $user->setPassword($passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData()));
-            if ($this->isGranted('ROLE_ADMIN'))
-            {
-                $user->setRoles(array($form->get('role')->getData()));
-            }
-            $manager->persist($user);
-            $manager->flush();
-
-            return $this->redirectToRoute('home');
-        }
-
-        return $this->render('home/register.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('security/user_list.html.twig', [
+            'users' => $users,
         ]);
     }
 }

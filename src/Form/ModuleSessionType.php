@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
@@ -27,6 +28,12 @@ class ModuleSessionType extends AbstractType
                 'label' => 'Durée du module dans la formation',
                 'attr' => [
                     'class' => 'uk-input'
+                ],
+                'constraints' => [
+                    new GreaterThan([
+                        'value' => 0,
+                        'message' => 'Le nombre de jours ne peut pas être négatif',
+                    ])
                 ],
             ])
             ->add('back', SubmitType::class, [

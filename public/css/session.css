@@ -2,6 +2,7 @@
     --main-color: #FFAA3F;
     --main-secondary: #FFF9F2;
     --main-tertiary: #F4CD9A;
+    --alert: rgba(223, 144, 144, 0.589);
 }
 
 .uk-link, a.uk-button, a:link, a:visited {
@@ -27,15 +28,6 @@
     color: var(--main-secondary);
 }
 
-.uk-navbar-nav a {
-    color: #999;
-}
-
-.uk-navbar-nav .uk-button {
-    min-height: 0;
-    color: var(--main-secondary);
-}
-
 a i {
     color: var(--main-color)
 }
@@ -55,12 +47,35 @@ body {
     vertical-align: middle;
 }
 
+.flash-notice {
+    width: 50%;
+    padding: 0.5em;
+    margin: 1em auto 0 auto;
+    background-color: var(--alert);
+    border: 1px solid var(--alert);
+    border-radius: 0.5em;
+    text-align: center;
+}
+
+.center-it{
+    margin: inherit auto inherit auto;
+}
+
 /* ------------------------Navbar CSS------------------------ */
 
 #hero img {
     max-height: 10em;
     object-fit: cover;
     margin: 0.5em 0 0.5em 1em
+}
+
+.uk-navbar-nav a {
+    color: #999;
+}
+
+.uk-navbar-nav .uk-button {
+    min-height: 0;
+    color: var(--main-secondary);
 }
 
 /* ------------------------Personnes CSS------------------------ */
@@ -89,15 +104,6 @@ body {
 .mod-tool {
     font-size: 1.6em;
 }
-
-/* dd{
-    font-weight: bold;
-} */
-
-/* dt{
-    padding-left: 40px;
-    margin-bottom: 1em;
-} */
 
 dt {
     display: inline;

@@ -4,16 +4,13 @@
 
 
 {% block body %}
-
-{% for message in app.flashes('notice') %}
-    <div class="flash-notice">
-        {{ message }}
-    </div>
-{% endfor %}
-
-
 <main>
     <div id="wrapper-main">
+            {% for message in app.flashes('notice') %}
+            <div class="flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
         <h2>Détails de {{ formation.intitule }}</h2>
         <ul>
             <li>Débute le {{ formation.dateDebut | date('d/m/Y') }}</li>
