@@ -46,7 +46,7 @@ class UserType extends AbstractType
                 'constraints' => [
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Le mot de passe doit contenir au moins 3 caractères',
+                        'minMessage' => 'Le mot de passe doit contenir au moins 6 caractères',
                         'max' => 32,
                         'maxMessage' => 'Le mot de passe doit contenir au plus 32 caractères'
                     ])

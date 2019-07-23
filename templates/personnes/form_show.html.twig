@@ -37,8 +37,9 @@
             {% endfor %}
         </ul>
     </div>
-
+    {% if is_granted('ROLE_USER') %}
     <a class="uk-button uk-button-default uk-button-large" href="{{ path('formateur_calendar', {'id':formateur.id}) }}">Planning</a>
+    {% endif %}
 </div>
 </main>
 

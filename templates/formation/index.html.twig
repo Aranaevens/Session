@@ -41,7 +41,9 @@
         </tbody>
 
     </table>
+    {% if is_granted('ROLE_USER') %}
     <a class="uk-button uk-button-default uk-button-large" href="{{path('session_add')}}">Ajouter Formation</a>
+    {% endif %}
 </div>
 
 </main>

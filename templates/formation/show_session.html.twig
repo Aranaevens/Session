@@ -79,7 +79,9 @@
                 </tbody>
                
             </table>
+            {% if is_granted('ROLE_USER') %}
             <a class="uk-button uk-button-default uk-button-large" href="{{ path('session_add_stagiaire', {'id':formation.id}) }}">Ajouter un stagiaire</a>
+            {% endif %}
     </div>
 </main>
 

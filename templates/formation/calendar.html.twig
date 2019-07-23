@@ -3,7 +3,9 @@
 {% block body %}
 <main>
     <div id="wrapper-main">
+    {% if is_granted('ROLE_USER') %}
     <a class="uk-button" href="{{ path('session_add') }}">Ajouter une session</a>
+    {% endif %}
 
     {% include '@Calendar/calendar.html' %}
 </div>

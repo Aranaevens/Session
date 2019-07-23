@@ -65,6 +65,11 @@ class SecurityController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
+        if(!$user)
+        {
+            $user = new User();
+        }
+
         $form = $this->createForm(UserType::class, $user);
             $form->add('role', ChoiceType::class, [
                 'required' => false,
