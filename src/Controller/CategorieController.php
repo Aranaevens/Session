@@ -26,6 +26,8 @@ class CategorieController extends AbstractController
      */
     public function addCategorie(Categorie $categorie = null, Request $request, ObjectManager $manager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
         if (!$categorie)
         {
             $categorie = new Categorie();
@@ -52,6 +54,7 @@ class CategorieController extends AbstractController
      */
     public function addModule(Categorie $categorie, Request $request, ObjectManager $manager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $form = $this->createForm(ModuleCategorieType::class);
         $form->handleRequest($request); 
         
@@ -77,6 +80,7 @@ class CategorieController extends AbstractController
      */
     public function addFormateur(Categorie $categorie, Request $request, ObjectManager $manager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $form = $this->createForm(FormateurCategorieType::class);
         $form->handleRequest($request); 
         
@@ -102,6 +106,8 @@ class CategorieController extends AbstractController
      */
     public function deleteCategorie(Categorie $categorie, ObjectManager $manager) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
         $manager->remove($categorie);
         $manager->flush();
 

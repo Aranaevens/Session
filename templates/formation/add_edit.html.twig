@@ -5,7 +5,16 @@
 {% block body %}
 <main>
     <div id="wrapper-main">
-        {{form(form)}}
+        {{ form_start(form) }}
+        {{ form_row(form.intitule) }}
+        {{ form_row(form.nbPlaces) }}
+        {{ form_row(form.dateDebut) }}
+        {{ form_row(form.dateFin) }}
+        <br />
+        {{ form_row(form.valider) }}
+        
+        
+        {{ form_end(form) }}
     </div>
 </main>
 

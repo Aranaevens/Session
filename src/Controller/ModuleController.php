@@ -18,10 +18,12 @@ class ModuleController extends AbstractController
 {
     /**
      * @Route("/add", name="module_add")
-     * @Route("/{id}/edit", name="module_edit")
+     * @Route("/edit/{id}", name="module_edit")
      */
     public function addModule(Modul $module = null, Request $request, ObjectManager $manager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
         if (!$module)
         {
             $module = new Modul();
@@ -43,9 +45,12 @@ class ModuleController extends AbstractController
 
 
     /**
-     * @Route("/{id}/delete", name="module_delete")
+     * @Route("/delete/{id}", name="module_delete")
      */
-    public function deleteModule(Modul $module, ObjectManager $manager) : Response {
+    public function deleteModule(Modul $module, ObjectManager $manager) : Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
         $manager->remove($module);
         $manager->flush();
 

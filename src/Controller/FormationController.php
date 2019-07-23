@@ -46,10 +46,12 @@ class FormationController extends AbstractController
 
      /**
      * @Route("/add", name="session_add")
-     * @Route("/{id}/edit", name="session_edit")
+     * @Route("/edit/{id}", name="session_edit")
      */
     public function addSession(Session $session = null, Request $request, ObjectManager $manager)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
         if(!$session)
         {
             $session = new Session();
@@ -83,7 +85,9 @@ class FormationController extends AbstractController
     /**
      * @Route("/{id}", name="show_session", methods="GET")
      */
-    public function showSession(Session $formation): Response{
+    public function showSession(Session $formation): Response
+    {
+        
         $stagiaires = $this->getDoctrine()
                            ->getRepository(Stagiaire::class)
                            ->stagiairesByFormation($formation->getId());
@@ -101,10 +105,12 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/addModule", name="session_add_module")
+     * @Route("/addModule/{id}", name="session_add_module")
      */
     public function addModule(Session $session, Request $request, ObjectManager $manager) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
         $form = $this->createForm(ModuleSessionType::class);
         $flag = true;
         $form->handleRequest($request);
@@ -133,10 +139,11 @@ class FormationController extends AbstractController
         ]);
     }
     /**
-     * @Route("/{id}/edit_module", name="session_edit_module")
+     * @Route("/edit_module/{id}", name="session_edit_module")
      */
-    public function editModule(Composer $duree, Request $request, ObjectManager $manager) : Response{
-
+    public function editModule(Composer $duree, Request $request, ObjectManager $manager) : Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $form = $this->createForm(ComposerType::class,$duree);
         $form->handleRequest($request);
 
@@ -155,11 +162,13 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/{id_composer}/remove_module", name="session_remove_module")
+     * @Route("/remove_module/{id}/{id_composer}", name="session_remove_module")
      * @Entity("composer", expr="repository.find(id_composer)")
      */
     public function removeModule(Composer $composer, Session $session, Request $request, ObjectManager $manager) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $session->removeComposer($composer);
         $manager->flush();
         
@@ -167,11 +176,13 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/{id_stagiaire}/remove_stagiaire", name="session_remove_stagiaire")
+     * @Route("/remove_stagiaire/{id}/{id_stagiaire}", name="session_remove_stagiaire")
      * @Entity("stagiaire", expr="repository.find(id_stagiaire)")
      */
     public function removeStagiaire(Session $session, Stagiaire $stagiaire, Request $request, ObjectManager $manager) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $session->removeStagiaire($stagiaire);
         $manager->flush();
         
@@ -179,10 +190,12 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/addStagiaire", name="session_add_stagiaire")
+     * @Route("/addStagiaire/{id}", name="session_add_stagiaire")
      */
     public function addStagiaire(Session $session, Request $request, ObjectManager $manager) : Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
         if (($session->getNbPlaces() - count($session->getStagiaires())) == 0)
         {
             $this->addFlash(
@@ -218,9 +231,12 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("{id}/delete/", name="session_delete")
+     * @Route("/delete/{id}", name="session_delete")
      */
-    public function deleteSession(Session $session, ObjectManager $manager) : Response {
+    public function deleteSession(Session $session, ObjectManager $manager) : Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
         $manager->remove($session);
         $manager->flush();
 
@@ -230,7 +246,8 @@ class FormationController extends AbstractController
     /**
      * @Route("/", name="formations_list")
      */
-    public function listFormations(): Response{
+    public function listFormations(): Response
+    {
         $sessions = $this->getDoctrine()
                          ->getRepository(Session::class)
                          ->findAll();

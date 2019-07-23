@@ -73,10 +73,12 @@ class PersonnesController extends AbstractController
     }
 
     /**
-     * @Route("/formateurs/{id}/delete", name="formateur_delete")
+     * @Route("/formateurs/delete/{id}", name="formateur_delete")
      */
     public function deleteFormateur(Formateur $formateur, ObjectManager $manager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
         $manager->remove($formateur);
         $manager->flush();
         
@@ -85,10 +87,12 @@ class PersonnesController extends AbstractController
 
     /**
      * @Route("/formateurs/add", name="formateur_add")
-     * @Route("/formateurs/{id}/edit", name="formateur_edit")
+     * @Route("/formateurs/edit/{id}", name="formateur_edit")
      */
     public function addFormateur(Formateur $formateur = null, Request $request, ObjectManager $manager)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
         if (!$formateur)
         {
             $formateur = new Formateur();
@@ -111,7 +115,7 @@ class PersonnesController extends AbstractController
     }
     
     /**
-     * @Route("/formateurs", name="formateurs_list")
+     * @Route("/formateurs/", name="formateurs_list")
      */
     public function listFormateur(): Response
     {
@@ -145,10 +149,12 @@ class PersonnesController extends AbstractController
     }
 
     /**
-     * @Route("/stagiaires/{id}/delete", name="stagiaire_delete")
+     * @Route("/stagiaires/delete/{id}", name="stagiaire_delete")
      */
     public function deleteStagiaire(Stagiaire $stagiaire, ObjectManager $manager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
         $manager->remove($stagiaire);
         $manager->flush();
         
@@ -157,10 +163,12 @@ class PersonnesController extends AbstractController
 
     /**
      * @Route("/stagiaires/add", name="stagiaire_add")
-     * @Route("/stagiaires/{id}/edit", name="stagiaire_edit")
+     * @Route("/stagiaires/edit/{id}", name="stagiaire_edit")
      */
     public function addStagiaire(Stagiaire $stagiaire = null, Request $request, ObjectManager $manager)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
         if (!$stagiaire)
         {
             $stagiaire = new Stagiaire();

@@ -59,9 +59,7 @@
                         <th class="uk-width-1-4">Identité</th>
                         <th class="uk-width-1-4">Email</th>
                         <th class="uk-width-1-4">Téléphone</th>
-                        {% if is_granted('ROLE_USER') %}
                             <th class="uk-width-1-6">Outils</td>
-                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -70,14 +68,18 @@
                             <td class="uk-width-1-4">{{ stagiaire.prenom ~ " " ~ stagiaire.nom }}</td>
                             <td class="uk-width-1-4">{{ stagiaire.email }}</td>
                             <td class="uk-width-1-4">{{ stagiaire.telephone }}</td>
-                            {% if is_granted('ROLE_USER') %}
+                            
                                 <td class="uk-width-1-6">
                                     {% if now > formation.dateFin %}
                                     <a href="{{path('diplome', {'id':stagiaire.id, 'id_formation':formation.id}) }}"><i class="fas fa-check"></i></a>
+                                    {% else %}
+                                    <i class="fas fa-check disabled"></i>
                                     {% endif %}
+                                    {% if is_granted('ROLE_USER') %}
                                     <a href="{{ path('session_remove_stagiaire', {'id':formation.id, 'id_stagiaire':stagiaire.id}) }}"><i class="fas fa-times"></i></a>
+                                    {% endif %}
                                 </td>
-                            {% endif %}
+                            
                         </tr>
                     {% endfor %}
                 </tbody>

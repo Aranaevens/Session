@@ -126,3 +126,39 @@ dd {
     content:"\a";
     white-space: pre;
 }
+
+.disabled {
+    color: rgba(177, 177, 177, 0.4);
+}
+
+/* ------------------------Responsive Navbar------------------------ */
+
+@media screen and (max-width: 1170px)
+{
+    .uk-navbar-center .uk-navbar-nav {
+        flex-wrap: wrap;
+        width: 70%
+    }
+
+    .uk-navbar-center .uk-navbar-nav li {
+        width: 50%;
+    }
+
+    .uk-navbar-center .uk-navbar-nav li:last-child {
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+}
+
+@media screen and (max-width: 880px)
+{
+    .uk-navbar-center .uk-navbar-nav {
+        flex-wrap: wrap;
+        width: 40%;
+        margin-left: 28%;
+    }
+
+    .uk-navbar-right .uk-navbar-nav {
+        flex-direction: column;
+    }
+}
