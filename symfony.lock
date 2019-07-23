@@ -159,6 +159,9 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "spipu/html2pdf": {
+        "version": "v5.2.1"
+    },
     "swiftmailer/swiftmailer": {
         "version": "v6.2.1"
     },
@@ -528,6 +531,9 @@
         "files": [
             "./config/routes/calendar.yaml"
         ]
+    },
+    "tecnickcom/tcpdf": {
+        "version": "6.2.26"
     },
     "twig/twig": {
         "version": "v2.11.3"

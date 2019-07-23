@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+// require __DIR__.'/vendor/autoload.php';
+
+use Spipu\Html2Pdf\Html2Pdf;
+
 use App\Entity\Modul;
 use App\Entity\Session;
 use App\Entity\Composer;
@@ -204,6 +208,49 @@ class PersonnesController extends AbstractController
 
         return $this->render('personnes/stag_list.html.twig', [
             'stagiaires' => $stagiaires,
+        ]);
+    }
+
+    /**
+     * @Route("/diplome/{id}/{id_formation}", name="diplome")
+     * @Entity("formation", expr="repository.find(id_formation)")
+     */
+    public function getDiplome(Stagiaire $stagiaire, Session $formation): Reponse
+    {
+        $auj = new \DateTime();
+        $today = $auj->format('d/m/Y');
+        $html2pdf = new Html2Pdf('L', 'A4', 'fr');
+        $html2pdf->writeHTML('<style>h1 {
+            text-align: center;
+            margin-top: 15%;
+        }
+        
+        #main {
+            text-align: justify;
+            width: 60%;
+            margin: 10% 20% 0.5em 20%;
+        }
+        
+        #right {
+            width: 60%;
+            margin: 0.5em 20% 0.5em 20%;
+            text-align: right;
+        }</style>');
+        $html2pdf->writeHTML('<h1>Diplôme</h1>');
+        if ($stagiaire->getGenre() == 'M')
+        {
+            $html2pdf->writeHTML('<div id="main"><p>Elan Formation stipule que le stagiaire ' . $stagiaire->getPrenom() . " " . $stagiaire->getNom() . ' a bien effectué la formation professionnelle <strong>' . $formation->getIntitule() . '</strong> au sein de notre établissement</p></div>');
+        }
+        else
+        {
+            $html2pdf->writeHTML('<div id="main"><p>Elan Formation stipule que la stagiaire ' . $stagiaire->getPrenom() . " " . $stagiaire->getNom() . ' a bien effectué la formation professionnelle <strong>' . $formation->getIntitule() . '</strong> au sein de notre établissement</p></div>');
+        }
+        // $html2pdf->writeHTML('a bien effectué la formation professionnelle <strong>' . $formation->getIntitule() . '</strong> au sein de notre établissement</p></div>');
+        $html2pdf->writeHTML('<div id="right">Fait le ' . $today . '</div>');
+        $html2pdf->output("diplome_" . $stagiaire->getPrenom() . "_" . $stagiaire->getNom() . ".pdf");
+
+        return $this->redirectToRoute('show_session', [
+            'id' => $formation->getId(),
         ]);
     }
 }

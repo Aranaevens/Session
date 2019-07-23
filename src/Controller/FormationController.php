@@ -96,6 +96,7 @@ class FormationController extends AbstractController
             'formation' => $formation,
             'stagiaires'=>$stagiaires,
             'durees'=>$durees,
+            'now' => new \DateTime,
         ]);   
     }
 
