@@ -90,19 +90,6 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/", name="formations_list")
-     */
-    public function listFormations(): Response{
-        $sessions = $this->getDoctrine()
-                         ->getRepository(Session::class)
-                         ->findAll();
-
-        return $this->render('formation/index.html.twig', [
-            'sessions' => $sessions,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/addModule", name="session_add_module")
      */
     public function addModule(Session $session, Request $request, ObjectManager $manager) : Response
@@ -135,9 +122,9 @@ class FormationController extends AbstractController
         ]);
     }
     /**
-     * @Route("/{id}/{id_composer}/edit", name="session_edit_module")
+     * @Route("/{id}/edit_module", name="session_edit_module")
      */
-    public function editModule( Composer $duree, Request $request, ObjectManager $manager) : Response{
+    public function editModule(Composer $duree, Request $request, ObjectManager $manager) : Response{
 
         $form = $this->createForm(ComposerType::class,$duree);
         $form->handleRequest($request);
@@ -154,7 +141,6 @@ class FormationController extends AbstractController
             'session' => $duree,
             'form' => $form->createView(),
         ]);
-
     }
 
     /**
@@ -164,6 +150,18 @@ class FormationController extends AbstractController
     public function removeModule(Composer $composer, Session $session, Request $request, ObjectManager $manager) : Response
     {
         $session->removeComposer($composer);
+        $manager->flush();
+        
+        return $this->showSession($session);
+    }
+
+    /**
+     * @Route("/{id}/{id_stagiaire}/remove", name="session_remove_stagiaire")
+     * @Entity("stagiaire", expr="repository.find(id_stagiaire)")
+     */
+    public function removeStagiaire(Session $session, Stagiaire $stagiaire, Request $request, ObjectManager $manager) : Response
+    {
+        $session->removeStagiaire($stagiaire);
         $manager->flush();
         
         return $this->showSession($session);
@@ -213,18 +211,6 @@ class FormationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/{id_stagiaire}/remove", name="session_remove_stagiaire")
-     * @Entity("stagiaire", expr="repository.find(id_stagiaire)")
-     */
-    public function removeStagiaire(Session $session, Stagiaire $stagiaire, Request $request, ObjectManager $manager) : Response
-    {
-        $session->removeStagiaire($stagiaire);
-        $manager->flush();
-        
-        return $this->showSession($session);
-    }
-
-    /**
      * @Route("{id}/delete/", name="session_delete")
      */
     public function deleteSession(Session $session, ObjectManager $manager) : Response {
@@ -232,5 +218,18 @@ class FormationController extends AbstractController
         $manager->flush();
 
         return $this->redirectToRoute('formations_list');
+    }
+
+    /**
+     * @Route("/", name="formations_list")
+     */
+    public function listFormations(): Response{
+        $sessions = $this->getDoctrine()
+                         ->getRepository(Session::class)
+                         ->findAll();
+
+        return $this->render('formation/index.html.twig', [
+            'sessions' => $sessions,
+        ]);
     }
 }

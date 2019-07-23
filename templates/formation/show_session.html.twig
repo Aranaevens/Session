@@ -45,7 +45,7 @@
                         <td class="uk-width-1-3">{{ duree.nbJours }} jours</td>
                         {% if is_granted('ROLE_USER') %}
                         <td class="uk-width-1-6">
-                                <a href="{{ path('session_edit_module', {'id':formation.id, 'id_composer':duree.id}) }}"><i class="fas fa-edit"></i></a>
+                                <a href="{{ path('session_edit_module', {'id':duree.id}) }}"><i class="fas fa-edit"></i></a>
                             <a href="{{ path('session_remove_module', {'id':formation.id, 'id_composer':duree.id}) }}"><i class="fas fa-times"></i></a>
                         </td>
                     {% endif %}
