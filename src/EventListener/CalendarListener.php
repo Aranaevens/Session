@@ -26,7 +26,6 @@ class CalendarListener
         $start = $calendar->getStart();
         $end = $calendar->getEnd();
         $filters = $calendar->getFilters();
-        dump($filters['formateur']);
         // Modify the query to fit to your entity and needs
         // Change session.beginAt by your start date property
         if (array_key_exists('formateur', $filters))
