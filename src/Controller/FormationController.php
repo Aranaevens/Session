@@ -29,6 +29,8 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 /**
@@ -47,6 +49,7 @@ class FormationController extends AbstractController
      /**
      * @Route("/add", name="session_add")
      * @Route("/edit/{id}", name="session_edit")
+     * @IsGranted("ROLE_USER")
      */
     public function addSession(Session $session = null, Request $request, ObjectManager $manager)
     {
@@ -106,6 +109,7 @@ class FormationController extends AbstractController
 
     /**
      * @Route("/addModule/{id}", name="session_add_module")
+     * @IsGranted("ROLE_USER")
      */
     public function addModule(Session $session, Request $request, ObjectManager $manager) : Response
     {
@@ -140,6 +144,7 @@ class FormationController extends AbstractController
     }
     /**
      * @Route("/edit_module/{id}", name="session_edit_module")
+     * @IsGranted("ROLE_USER")
      */
     public function editModule(Composer $duree, Request $request, ObjectManager $manager) : Response
     {
@@ -164,6 +169,7 @@ class FormationController extends AbstractController
     /**
      * @Route("/remove_module/{id}/{id_composer}", name="session_remove_module")
      * @Entity("composer", expr="repository.find(id_composer)")
+     * @IsGranted("ROLE_USER")
      */
     public function removeModule(Composer $composer, Session $session, Request $request, ObjectManager $manager) : Response
     {
@@ -178,6 +184,7 @@ class FormationController extends AbstractController
     /**
      * @Route("/remove_stagiaire/{id}/{id_stagiaire}", name="session_remove_stagiaire")
      * @Entity("stagiaire", expr="repository.find(id_stagiaire)")
+     * @IsGranted("ROLE_USER")
      */
     public function removeStagiaire(Session $session, Stagiaire $stagiaire, Request $request, ObjectManager $manager) : Response
     {
@@ -191,6 +198,7 @@ class FormationController extends AbstractController
 
     /**
      * @Route("/addStagiaire/{id}", name="session_add_stagiaire")
+     * @IsGranted("ROLE_USER")
      */
     public function addStagiaire(Session $session, Request $request, ObjectManager $manager) : Response
     {
@@ -232,6 +240,7 @@ class FormationController extends AbstractController
 
     /**
      * @Route("/delete/{id}", name="session_delete")
+     * @IsGranted("ROLE_USER")
      */
     public function deleteSession(Session $session, ObjectManager $manager) : Response
     {

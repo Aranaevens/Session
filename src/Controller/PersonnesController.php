@@ -31,6 +31,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 /**
  * @Route("/personnes")
@@ -74,6 +77,7 @@ class PersonnesController extends AbstractController
 
     /**
      * @Route("/formateurs/delete/{id}", name="formateur_delete")
+     * @IsGranted("ROLE_USER")
      */
     public function deleteFormateur(Formateur $formateur, ObjectManager $manager): Response
     {
@@ -88,6 +92,7 @@ class PersonnesController extends AbstractController
     /**
      * @Route("/formateurs/add", name="formateur_add")
      * @Route("/formateurs/edit/{id}", name="formateur_edit")
+     * @IsGranted("ROLE_USER")
      */
     public function addFormateur(Formateur $formateur = null, Request $request, ObjectManager $manager)
     {
@@ -150,6 +155,7 @@ class PersonnesController extends AbstractController
 
     /**
      * @Route("/stagiaires/delete/{id}", name="stagiaire_delete")
+     * @IsGranted("ROLE_USER")
      */
     public function deleteStagiaire(Stagiaire $stagiaire, ObjectManager $manager): Response
     {
@@ -164,6 +170,7 @@ class PersonnesController extends AbstractController
     /**
      * @Route("/stagiaires/add", name="stagiaire_add")
      * @Route("/stagiaires/edit/{id}", name="stagiaire_edit")
+     * @IsGranted("ROLE_USER")
      */
     public function addStagiaire(Stagiaire $stagiaire = null, Request $request, ObjectManager $manager)
     {

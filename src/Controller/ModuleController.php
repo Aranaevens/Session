@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/modules")
@@ -19,6 +21,7 @@ class ModuleController extends AbstractController
     /**
      * @Route("/add", name="module_add")
      * @Route("/edit/{id}", name="module_edit")
+     * @IsGranted("ROLE_USER")
      */
     public function addModule(Modul $module = null, Request $request, ObjectManager $manager): Response
     {
@@ -46,6 +49,7 @@ class ModuleController extends AbstractController
 
     /**
      * @Route("/delete/{id}", name="module_delete")
+     * @IsGranted("ROLE_USER")
      */
     public function deleteModule(Modul $module, ObjectManager $manager) : Response
     {

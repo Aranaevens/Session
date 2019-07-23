@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class SecurityController extends AbstractController
 {
@@ -44,6 +46,7 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/user/delete/{id}", name="user_delete")
+     * @Security("is_granted('ROLE_ADMIN') and is_granted('IS_AUTHENTICATED_FULLY')")
      */
     public function deleteUser(User $user, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -59,6 +62,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/user/edit/{id}", name="user_edit")
      * @Route("/user/add", name="user_add")
+     * @Security("is_granted('ROLE_ADMIN') and is_granted('IS_AUTHENTICATED_FULLY')")
      */
     public function editUser(User $user = null, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -100,6 +104,7 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/user/", name="users_list")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function listUser(): Response
     {

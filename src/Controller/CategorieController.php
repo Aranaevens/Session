@@ -14,6 +14,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/categories")
@@ -23,6 +25,7 @@ class CategorieController extends AbstractController
     /**
      * @Route("/add", name="categorie_add")
      * @Route("/{id}/edit", name="categorie_edit")
+     * @IsGranted("ROLE_USER")
      */
     public function addCategorie(Categorie $categorie = null, Request $request, ObjectManager $manager): Response
     {
@@ -51,6 +54,7 @@ class CategorieController extends AbstractController
 
     /**
      * @Route("/{id}/addModule", name="categorie_add_module")
+     * @IsGranted("ROLE_USER")
      */
     public function addModule(Categorie $categorie, Request $request, ObjectManager $manager): Response
     {
@@ -77,6 +81,7 @@ class CategorieController extends AbstractController
 
     /**
      * @Route("/{id}/addFormateur", name="categorie_add_formateur")
+     * @IsGranted("ROLE_USER")
      */
     public function addFormateur(Categorie $categorie, Request $request, ObjectManager $manager): Response
     {
@@ -103,6 +108,7 @@ class CategorieController extends AbstractController
 
     /**
      * @Route("/{id}/delete", name="categorie_delete")
+     * @IsGranted("ROLE_USER")
      */
     public function deleteCategorie(Categorie $categorie, ObjectManager $manager) : Response
     {
