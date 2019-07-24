@@ -19,7 +19,7 @@ class AdminFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $adm = new User();
-        $adm->setEmail('sudo@superadmin.elan.fr')
+        $adm->setEmail('sudo@elan.fr')
             ->setPassword($this->encoder->encodePassword(
                 $adm, 'admin'))
             ->setRoles(array('ROLE_ADMIN'));
