@@ -65,13 +65,13 @@ class FormationController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            if ($form->get('dateDebut')->getData() < $form->get('dateDebut')->getData())
+            if ($form->get('dateFin')->getData() < $form->get('dateDebut')->getData())
             {
                 $this->addFlash(
                     'notice',
                     'La date de fin doit être après la date de début'
                 );
-                return $this->redirect($session->get('referer'));
+                return $this->redirect($request->getSession()->get('referer'));
             }
             
             $manager->persist($session);

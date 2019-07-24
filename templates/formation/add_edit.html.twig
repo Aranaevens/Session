@@ -5,6 +5,11 @@
 {% block body %}
 <main>
     <div id="wrapper-main">
+        {% for message in app.flashes('notice') %}
+            <div class="flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
         {{ form_start(form) }}
         {{ form_row(form.intitule) }}
         {{ form_row(form.nbPlaces) }}
