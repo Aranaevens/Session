@@ -29,8 +29,8 @@ class SessionsFixtures extends Fixture implements DependentFixtureInterface
         
         $wordexcel = new Session();
         $wordexcel->setIntitule('Initiation à Word et Excel')
-                    ->setDateDebut(new \DateTime('2018-06-17'))
-                    ->setDateFin(new \DateTime('2018-06-29'))
+                    ->setDateDebut(new \DateTime('2019-06-17'))
+                    ->setDateFin(new \DateTime('2019-06-29'))
                     ->setNbPlaces(8)
                     ->addStagiaire($sample);
         $manager->persist($wordexcel);
@@ -49,7 +49,7 @@ class SessionsFixtures extends Fixture implements DependentFixtureInterface
         $dl->setIntitule('Developpeur Web / Web Mobile')
             ->setDateDebut(new \DateTime('2019-05-15'))
             ->setDateFin(new \DateTime('2019-12-17'))
-            ->setNbPlaces(12)
+            ->setNbPlaces(6)
             ->addStagiaire($ibn)
             ->addStagiaire($nicolas)
             ->addStagiaire($simon)

@@ -6,6 +6,7 @@ use App\Entity\Modul;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -33,7 +34,13 @@ class ModuleSessionType extends AbstractType
                     new GreaterThan([
                         'value' => 0,
                         'message' => 'Le nombre de jours ne peut pas être négatif',
+                    ]),
+                    new Regex([
+                        'pattern' => "/\D/",
+                        'match' => false,
+                        'message' => "Le nombre de jours ne peut pas contenir de lettres"
                     ])
+                    
                 ],
             ])
             ->add('back', SubmitType::class, [

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Formateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -52,7 +53,7 @@ class FormateurType extends AbstractType
             ],
         ])
         ->add('genre',ChoiceType::class, [
-            'required' => true,
+            'required' => false,
             'label' => 'Genre',
             'choices' => ['Homme' => 'M', 'Femme' => 'F'],
             'expanded' => true,
@@ -96,6 +97,11 @@ class FormateurType extends AbstractType
                     'minMessage' => 'L\email doit contenir au moins 6 caractères',
                     'max' => 99,
                     'maxMessage' => 'L\email doit contenir au plus 99 caractères'
+                ]),
+                new Regex([
+                    'pattern' => "/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/",
+                    'match' => true,
+                    'message' => "L'adresse mail est invalide'"
                 ])
             ],
         ])
@@ -114,6 +120,11 @@ class FormateurType extends AbstractType
                     // The E.164 recommandation defines 15 digits as the maximum for international phone numbering.
                     'max' => 15,
                     'maxMessage' => 'Le numéro de téléphone doit contenir au plus 15 caractères'
+                ]),
+                new Regex([
+                    'pattern' => "/\+?\d+/",
+                    'match' => true,
+                    'message' => "Le numéro de téléphone est invalide"
                 ])
             ],
         ])

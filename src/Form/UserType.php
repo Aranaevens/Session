@@ -30,6 +30,11 @@ class UserType extends AbstractType
                         'minMessage' => 'L\email doit contenir au moins 6 caractères',
                         'max' => 99,
                         'maxMessage' => 'L\email doit contenir au plus 99 caractères'
+                    ]),
+                    new Regex([
+                        'pattern' => "/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/",
+                        'match' => true,
+                        'message' => "L'adresse mail est invalide'"
                     ])
                 ],
             ])

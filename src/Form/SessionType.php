@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Session;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -45,6 +46,11 @@ class SessionType extends AbstractType
                     new GreaterThan([
                         'value' => 0,
                         'message' => 'Le nombre de jours ne peut pas être négatif',
+                    ]),
+                    new Regex([
+                        'pattern' => "/\D/",
+                        'match' => false,
+                        'message' => "Le nombre de places ne peut pas contenir de lettres"
                     ])
                 ],
             ])
